@@ -33,7 +33,7 @@ way of doing things in the R world, and there is a question mark if they get ado
         - [package_name/tests/](package_name/tests/)
         - [docs/](docs/)
         - [release-please-config.json](release-please-config.json)
-        - [GitHub Actions workflow](.github/workflows/ci.yaml)
+        - [GitHub Actions workflow](.github/workflows/ci.yml)
         - This README (including badge links)
     1. Update the `"package-name"` field in [release-please-config.json](release-please-config.json) with your package name for automatically bumping the version number in [uv.lock](uv.lock) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
     1. Customise this README with a description of your project and planned features.
@@ -46,11 +46,11 @@ way of doing things in the R world, and there is a question mark if they get ado
 - Modular project directory structure using [box](https://klmr.me/box/articles/box.html)
 - README template with badges
 - Packaging and dependency management via [rv](https://a2-ai.github.io/rv-docs/): [rproject.toml](rproject.toml)
-- Linting via [Ruff](https://jarl.etiennebacher.com/)
+- Linting via [Jarl](https://jarl.etiennebacher.com/)
 - Formatting via [Air](https://posit-dev.github.io/air/)
 - Testing framework using [testthat](https://testthat.r-lib.org/)
-- CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yaml](.github/workflows/ci.yaml)
-- Docs generated with [Quartrify](https://github.com/ddotta/quartify)  and deployed to `gh-pages` branch via GitHub action: [.github/workflows/generate-docs.yaml](.github/workflows/generate-docs.yaml)
+- CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yml](.github/workflows/ci.yml)
+- Docs generated with [Quartrify](https://github.com/ddotta/quartify)  and deployed to `gh-pages` branch via GitHub action: [.github/workflows/generate-docs.yml](.github/workflows/generate-docs.yml)
 - Release automation via GitHub action from [release-please](https://github.com/googleapis/release-please): [.github/release-please-config.json](.github/release-please-config.json)
 - Citation metadata, automatically updated for each new release: [CITATION.cff](CITATION.cff)
 - [EditorConfig](https://editorconfig.org/) configuration for consistent coding style across editors: [.editorconfig](.editorconfig)
@@ -73,7 +73,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](./devcontainer/Dockerfile) and [configuration](./devcontainer/devcontainer.json) in [./devcontainer](./devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a Python 3.14 base image and installs uv, just and all Python dependencies.
+A [Dockerfile](./.devcontainer/Dockerfile) and [configuration](./.devcontainer/devcontainer.json) in [./.devcontainer](./.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a Python 3.14 base image and installs uv, just and all Python dependencies.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -141,9 +141,9 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 │   └── demo.qmd
 ├── .github/
 │   ├── workflows/
-│   │   ├── ci.yaml                # Lint / test / build
-│   │   ├── generate-docs.yaml     # Generate and deploy docs
-│   │   ├── release-please.yaml    # Automated releases
+│   │   ├── ci.yml                # Lint / test / build
+│   │   ├── generate-docs.yml     # Generate and deploy docs
+│   │   ├── release-please.yml    # Automated releases
 |   |   └── update-citaton-date-released.yml     # Update date-released in CITATION.cff on new release
 ├── .devcontainer/                 # Dev container configuration
 │   ├── devcontainer.json
@@ -151,7 +151,6 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 ├── rproject.toml                  # Project metadata + dependencies (rv)
 ├── rv.lock                        # Locked dependency versions (rv)
 ├── README.md                      # Project overview (you are here)
-├── mkdocs.yml                     # MkDocs configuration
 ├── CITATION.cff                   # Citation metadata
 ├── LICENSE                        # License
 ├── NEWS.md                        # Generated by release-please (post-release)
@@ -166,7 +165,7 @@ Note that while it is common practice to keep the config files at the root of th
 repository, and this is what I recommend, it is possible to customise the
 location of some of them if you prefer
 (e.g. the path to `release-please-config.json` [can be specified in the
-release-please.yaml file for the GitHub action]
+release-please.yml file for the GitHub action]
 (<https://github.com/googleapis/release-please-action?tab=readme-ov-file#advanced-release-configuration>).
 
 ## 🤝 Contributing
