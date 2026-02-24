@@ -1,0 +1,29 @@
+[project]
+name = "package_name"
+# r-rig is a tool for managing multiple versions of R on a system.
+# additional versions of R can be installed with r-rig, but not all systems support it.
+# changing r_version in the r_project.toml file therefore is not possible on all systems. see for example: https://github.com/r-lib/rig/issues/317
+r_version = "4.5"
+# A list of repositories to fetch packages from. Order matters: we will try to get a package from each repository in order.
+# The alias is only used in this file if you want to specifically require a dependency to come from a certain repository.
+# Example: { alias = "PPM", url = "https://packagemanager.posit.co/cran/latest" },
+repositories = [
+  { alias = "PPM-manylinux-bin", url = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" },
+  { alias = "PPM", url = "https://packagemanager.posit.co/cran/latest" },
+]
+# A list of packages to install and anyadditional configuration
+# Examples:
+# "dplyr",
+# {name = "dplyr", repository = "CRAN"},
+# {name = "dplyr", git = "https://github.com/tidyverse/dplyr.git", tag = "v1.1.4"},
+# there is no way to do dev dependencies in rv at the moment
+# so dependencies such as languageserver or testthat have to be
+# explicitly named  as a dependency here. see https://github.com/A2-ai/rv/issues/336
+dependencies = [
+  { name = "box" },
+  { name = "dplyr" },
+  { name = "languageserver" },
+  { name = "quartify" },
+  { name = "roxygen2" },
+  { name = "testthat" },
+]

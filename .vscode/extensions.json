@@ -1,0 +1,13 @@
+{
+	"recommendations": [
+		"Posit.air-vscode",
+		"quarto.quarto",
+		"etiennebacher.jarl-vscode",
+		"EditorConfig.EditorConfig",
+		"ms-vscode-remote.remote-containers",
+		"RDebugSupport.r-debugger",
+		"REditorSupport.r-syntax",
+		"REditorSupport.r",
+		"tombi-toml.tombi"
+	]
+}
