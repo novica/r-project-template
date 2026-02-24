@@ -1,0 +1,22 @@
+---
+title: "Demo: package_name"
+format: html
+execute:
+  echo: true
+  warning: false
+  error: false
+---
+
+# Demo: package_name
+
+This Quarto notebook demonstrates loading the `package_name` package and using its helper functions.
+
+```{r}
+# Load the package module using box (path is relative to project root)
+# [...] imports all functions from the module into the hello object
+box::use(./src/package_name/hello[...])
+```
+```{r}
+# Use the greeting helpers via the module object
+say_hello("Alice")
+```

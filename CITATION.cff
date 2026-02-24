@@ -1,0 +1,16 @@
+cff-version: 0.1.0
+message: "If you use this project, please cite it using the metadata below."
+title: "r-project-template"
+version: "0.1.0"
+authors:
+  - family-names: Nakov
+    given-names: Novica
+    orcid: https://orcid.org/0009-0005-7773-7718
+date-released: "2026-02-24"
+url: "https://github.com/novica/r-project-template"
+repository-code: "https://github.com/novica/r-project-template"
+keywords:
+  - "R"
+  - "template"
+  - "project"
+  - "package"

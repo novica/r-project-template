@@ -1,0 +1,41 @@
+name: update-citation-date-in-release-pr
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-citation-date
+  cancel-in-progress: true
+
+jobs:
+  update-citation-date:
+    if: startsWith(github.head_ref, 'release-please--branches--main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Update date-released in CITATION.cff
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          echo "Setting date-released: ${DATE}"
+          yq -i ".date-released = \"${DATE}\"" CITATION.cff
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CITATION.cff
+
+          if git diff --cached --quiet; then
+            echo "No CITATION.cff changes needed."
+          else
+            git commit -m "chore: update CITATION.cff date-released to ${DATE}"
+            git push
+          fi

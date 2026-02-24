@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5"
+
+      - name: Install rv
+        run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | sh
+
+      - name: Sync project Try to install rv (if not already available)
+        run: rv sync
+
+      - name: Install air
+        run: curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-installer.sh | sh
+
+      - name: Run air (check only)
+        run: air format --check .
+
+      - name: Setup jarl
+        uses: etiennebacher/setup-jarl@v0.1.0
+
+      - name: Run jarl lint
+        run: jarl check .
+
+      - name: Run tests with testthat
+        run: Rscript -e "testthat::test_dir('src/package_name/__tests__')"

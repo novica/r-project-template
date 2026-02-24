@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R Scripts Documentation",
+    "section": "",
+    "text": "1 Welcome\nThis documentation was automatically generated from R scripts.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#navigation",
+    "href": "index.html#navigation",
+    "title": "R Scripts Documentation",
+    "section": "1.1 Navigation",
+    "text": "1.1 Navigation\nUse the sidebar to navigate through the different chapters.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#contents",
+    "href": "index.html#contents",
+    "title": "R Scripts Documentation",
+    "section": "1.2 Contents",
+    "text": "1.2 Contents\nThis documentation contains 2 R script(s) converted to Quarto.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Welcome</span>"
+    ]
+  },
+  {
+    "objectID": "__init__.html",
+    "href": "__init__.html",
+    "title": "2  init",
+    "section": "",
+    "text": "NoteFunction\n\n\n\n\n\nUsage\nFunction()\n\n\n\n\n# Lines 2\nbox::use(. / hello)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>__init__</span>"
+    ]
+  },
+  {
+    "objectID": "hello.html",
+    "href": "hello.html",
+    "title": "3  hello",
+    "section": "",
+    "text": "NoteGreet users\n\n\n\n\n\nUsage\nFunction()\n\n\n\n\n# Lines 4\n\".__module__.\"\n\n\n\n\n\n\n\nNoteGreets the user by name.\n\n\n\n\n\nUsage\nsay_hello(name)\nArguments\n\nname\n\nA string containing the name of the person to greet.\n\n\nValue\nA character string with a greeting message.\nExamples\nsay_hello(\"Alice\")\n# \"Hello, Alice!\"\n\n\n\n\n# Lines 16-18\nsay_hello &lt;- function(name) {\n  paste0(\"Hello, \", name, \"!\")\n}\n\n\n\n\n\n\n\nNoteBids farewell to the user by name.\n\n\n\n\n\nUsage\nsay_goodbye(name)\nArguments\n\nname\n\nA string containing the name of the person to bid farewell.\n\n\nValue\nA character string with a goodbye message.\nExamples\nsay_goodbye(\"Alice\")\n# \"Goodbye, Alice!\"\n\n\n\n\n# Lines 31-33\nsay_goodbye &lt;- function(name) {\n  paste0(\"Goodbye, \", name, \"!\")\n}",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>hello</span>"
+    ]
+  }
+]
