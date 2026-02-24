@@ -3,8 +3,24 @@ name: CI
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "README.Rmd"
+      - "docs/**"
+      - "inst/**"
+      - "*.md"
+      - ".github/**"
+      - "*.json "
+      - "CITATION.cff"
   pull_request:
     branches: [main]
+    paths-ignore:
+      - "README.Rmd"
+      - "docs/**"
+      - "inst/**"
+      - "*.md"
+      - ".github/**"
+      - "*.json "
+      - "CITATION.cff"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -23,7 +39,7 @@ jobs:
           r-version: "4.5"
 
       - name: Install rv
-        run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | sh
+        run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash
 
       - name: Sync project Try to install rv (if not already available)
         run: rv sync

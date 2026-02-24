@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - "docs/**"
-      - ".github/workflows/docs-pages.yaml"
+      - ".github/workflows/generate-docs.yml"
       - "src/package_name/**" # rebuild if API docs change
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
           r-version: "4.5"
 
       - name: Install rv
-        run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | sh
+        run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash
 
       - name: Sync project
         run: rv sync
