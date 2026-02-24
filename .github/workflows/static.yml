@@ -5,8 +5,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-        paths: 
-        - "docs/html/*"
+    paths:
+      - "docs/html/*"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './docs/html/'
+          path: "./docs/html/"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
