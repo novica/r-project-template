@@ -3,9 +3,9 @@
 [![CI](https://github.com/novica/r-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/ci.yml)
 [![release](https://github.com/novica/r-project-template/actions/workflows/release-please.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/release-please.yml)
 [![docs (Quartrify)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml)
-[![rv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/A2-ai/rv/main/assets/badge/v0.json)](https://github.com/A2-ai/rv)
-[![air](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/posit-dev/air/main/assets/badge/v2.json)](https://github.com/posit-dev/air/)
-[![jarl](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/etiennebacher/jarl/main/assets/badge/v2.json)](https://github.com/etiennebacher/jarl/)
+[![rv](https://img.shields.io/badge/-rv-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/A2-ai/rv)
+[![air](https://img.shields.io/badge/-air-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/posit-dev/air/)
+[![jarl](https://img.shields.io/badge/-jarl-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/etiennebacher/jarl/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
