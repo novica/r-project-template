@@ -38,7 +38,7 @@ jobs:
       - name: Run Quartrify
         run: Rscript -e "quartify::rtoqmd_dir('src/package_name/', render = TRUE,  output_html_dir = '../../docs/html', exclude_pattern='__tests__')"
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: "./docs/html/"
 
