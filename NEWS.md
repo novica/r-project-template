@@ -1,3 +1,11 @@
+## [0.1.3](https://github.com/novica/r-project-template/compare/package_name-v0.1.2...package_name-v0.1.3) (2026-02-28)
+
+
+### Bug Fixes
+
+* add quarto step to workflow ([be1fa0b](https://github.com/novica/r-project-template/commit/be1fa0be5e42b7e95618b4fe42aa5e3616b5bd41))
+* add quarto step to workflow ([3ec89fb](https://github.com/novica/r-project-template/commit/3ec89fbc67f6aa09cb5c0722be71f30da64d93dc))
+
 ## [0.1.2](https://github.com/novica/r-project-template/compare/package_name-v0.1.1...package_name-v0.1.2) (2026-02-24)
 
 
