@@ -21,7 +21,5 @@
   },
   "forwardPorts": [],
   "name": "R Project Template",
-  "postCreateCommand": "bash -lc \"curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash && if command -v rv >/dev/null 2>&1; then rv syncs || true; fi\"",
-  "workspaceFolder": "/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  "postCreateCommand": "rv sync && just pre-commit-install && just pre-commit"
 }
