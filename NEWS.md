@@ -1,3 +1,10 @@
+## [0.2.0](https://github.com/novica/r-project-template/compare/package_name-v0.1.3...package_name-v0.2.0) (2026-02-28)
+
+
+### Features
+
+* just and uv to dockerfile ([#11](https://github.com/novica/r-project-template/issues/11)) ([8742701](https://github.com/novica/r-project-template/commit/87427014823a877e9b59e77ce3c77a1a1aab00f4))
+
 ## [0.1.3](https://github.com/novica/r-project-template/compare/package_name-v0.1.2...package_name-v0.1.3) (2026-02-28)
 
 
