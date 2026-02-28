@@ -1,10 +1,10 @@
 {
-	"[r]": {
-		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "Posit.air-vscode"
-	},
-	"[quarto]": {
-		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "quarto.quarto"
-	}
+  "[quarto]": {
+    "editor.defaultFormatter": "quarto.quarto",
+    "editor.formatOnSave": true
+  },
+  "[r]": {
+    "editor.defaultFormatter": "Posit.air-vscode",
+    "editor.formatOnSave": true
+  }
 }
