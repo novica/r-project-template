@@ -1,7 +1,7 @@
 cff-version: 0.1.0
 message: If you use this project, please cite it using the metadata below.
 title: r-project-template
-version: 0.1.3
+version: 0.2.0
 authors:
   - family-names: Nakov
     given-names: Novica
