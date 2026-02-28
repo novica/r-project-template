@@ -38,9 +38,6 @@ jobs:
         with:
           r-version: "4.5"
 
-      - name: Set up quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
       - name: Install rv
         run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash
 
