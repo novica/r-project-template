@@ -14,9 +14,6 @@ This is an attempt to make an R project template, that is not an R package, and 
 
 The project features rv for project management and packaging, jarl for linting, and air for formatting, justfile, testthat testing, quarto documentation created with quartrify, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
 
-This is *work in progress*. It is missing some of the things that the python template has like:
-code coverage, pre commit hooks, GitHub issue and pull request templates, and architectural decision record (ADR) templates.
-
 While the template can help you start writing code immediately without having to spend time deciding what tools or conventions to use, the tools and conventions that it introduces are not the *default*
 way of doing things in the R world, and there is a question mark if they get adopted in the future or not.
 
