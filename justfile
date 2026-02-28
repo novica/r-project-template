@@ -35,3 +35,14 @@ test:
 # Build docs (Quartrify)
 docs-build:
      Rscript -e "quartify::rtoqmd_dir('src/package_name/', render = TRUE,  output_html_dir = '../../docs/html', exclude_pattern='__tests__')"
+
+# Install pre-commit hooks
+pre-commit-install:
+    uvx  pre-commit install \
+    && uvx pre-commit autoupdate --repo https://github.com/pre-commit/pre-commit-hooks \
+    && uvx pre-commit install -t pre-push \
+    && uvx pre-commit install --hook-type commit-msg
+
+# Run all pre-commit hooks
+pre-commit:
+    uvx pre-commit run --all-files --hook-stage push
