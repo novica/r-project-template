@@ -4,9 +4,10 @@
 [![release](https://github.com/novica/r-project-template/actions/workflows/release-please.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/release-please.yml)
 [![docs (Quartrify)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml)
 [![Dependabot](https://img.shields.io/github/issues-search?query=repo%3Anovica%2Fr-project-template%20is%3Apr%20author%3Aapp%2Fdependabot%20is%3Aopen&label=Dependabot%20PRs)](https://github.com/novica/r-project-template/issues?q=is%3Apr%20is%3Aopen%20author%3Aapp%2Fdependabot)
-[![rv](https://img.shields.io/badge/-rv-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/A2-ai/rv)
 [![air](https://img.shields.io/badge/-air-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/posit-dev/air/)
+[![rv](https://img.shields.io/badge/-box-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/klmr/box)
 [![jarl](https://img.shields.io/badge/-jarl-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/etiennebacher/jarl/)
+[![rv](https://img.shields.io/badge/-rv-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/A2-ai/rv)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
