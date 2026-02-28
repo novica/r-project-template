@@ -1,15 +1,16 @@
 {
   "packages": {
     ".": {
-      "release-type": "r",
-      "package-name": "package_name",
-      "extra-files": ["rproject.toml",
-      {
+      "extra-files": [
+        "rproject.toml",
+        {
           "jsonpath": "$.version",
           "path": "CITATION.cff",
           "type": "yaml"
-        }]
+        }
+      ],
+      "package-name": "package_name",
+      "release-type": "r"
+    }
   }
 }
-}
-

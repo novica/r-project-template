@@ -1,27 +1,27 @@
 {
-	"name": "R Project Template",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"context": ".."
-	},
-	"workspaceFolder": "/workspace",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-	"customizations": {
-		"vscode": {
-			"settings": {
-				"r.rterm.linux": "/usr/local/bin/R",
-				"r.lsp.path": "/usr/local/bin/R"
-			},
-			"extensions": [
-				"quarto.quarto",
-				"REditorSupport.r",
-				"REditorSupport.r-syntax",
-				"RDebugSupport.r-debugger",
-				"etiennebacher.jarl-vscode",
-				"Posit.air-vscode"
-			]
-		}
-	},
-	"forwardPorts": [],
-	"postCreateCommand": "bash -lc \"curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash && if command -v rv >/dev/null 2>&1; then rv syncs || true; fi\""
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "quarto.quarto",
+        "REditorSupport.r",
+        "REditorSupport.r-syntax",
+        "RDebugSupport.r-debugger",
+        "etiennebacher.jarl-vscode",
+        "Posit.air-vscode"
+      ],
+      "settings": {
+        "r.lsp.path": "/usr/local/bin/R",
+        "r.rterm.linux": "/usr/local/bin/R"
+      }
+    }
+  },
+  "forwardPorts": [],
+  "name": "R Project Template",
+  "postCreateCommand": "bash -lc \"curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash && if command -v rv >/dev/null 2>&1; then rv syncs || true; fi\"",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
 }

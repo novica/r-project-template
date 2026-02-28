@@ -1,0 +1,42 @@
+repos:
+# --- Air formatter ---
+  - repo: https://github.com/posit-dev/air-pre-commit
+    # Air version
+    rev: 0.8.2
+    hooks:
+      # Run the formatter
+      - id: air-format
+
+# --- Basic hygiene ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: pretty-format-json
+        args: ["--autofix", "--no-ensure-ascii"]
+        files: "\\.(json)$"
+
+  # --- Conventional commits ---
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.0.0  # check for latest version
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+
+  # --- Spelling (code+docs) ---
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        args: ["--skip", "uv.lock,dist,build,.venv,*.min.js"]
+        exclude: |
+          (?x)(
+            ^docs/_build/|
+            ^.*/vendor/.*
+          )
