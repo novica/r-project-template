@@ -1,3 +1,10 @@
+## [0.3.0](https://github.com/novica/r-project-template/compare/package_name-v0.2.0...package_name-v0.3.0) (2026-03-04)
+
+
+### Features
+
+* add jarl pre-commit ([#14](https://github.com/novica/r-project-template/issues/14)) ([01032af](https://github.com/novica/r-project-template/commit/01032afca3b9ea54664dbbc7ebf3e7ce63a640aa))
+
 ## [0.2.0](https://github.com/novica/r-project-template/compare/package_name-v0.1.3...package_name-v0.2.0) (2026-02-28)
 
 
