@@ -44,4 +44,4 @@ pre-commit-install:
 
 # Run all pre-commit hooks (via prek)
 pre-commit:
-    prek run --all-files --hook-stage push
+    prek run --all-files --hook-stage pre-push
