@@ -1,16 +1,30 @@
-cff-version: 0.1.0
-message: If you use this project, please cite it using the metadata below.
+cff-version: 1.2.0
+message: 'If you wish to cite the "r-project-template" repository use:'
+type: software
+license: BSD 3-Clause
 title: r-project-template
 version: 0.3.0
+abstract: >-
+  A template for R projects that is not an R package, exploring recent
+  tools from the R ecosystem: box for modular code organization instead
+  of package namespaces, rv for dependency management, air for
+  formatting, jarl for linting, and quartify for generating Quarto
+  documentation. Includes a justfile, testthat testing, pre-commit
+  hooks, GitHub Actions CI, and automated semantic releases.
 authors:
   - family-names: Nakov
     given-names: Novica
     orcid: https://orcid.org/0009-0005-7773-7718
-date-released: '2026-02-24'
-url: https://github.com/novica/r-project-template
 repository-code: https://github.com/novica/r-project-template
+url: https://github.com/novica/r-project-template
+contact:
+  - family-names: Nakov
+    given-names: Novica
+    email: nnovica@gmail.com
+    orcid: https://orcid.org/0009-0005-7773-7718
 keywords:
   - R
   - template
   - project
   - package
+date-released: '2026-02-24'
