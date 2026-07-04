@@ -27,37 +27,37 @@ way of doing things in the R world, and there is a question mark if they get ado
     1. Clone your new repo locally
 1. 🏡 Customise the repository
     1. Rename your package directory `cd src; mv package_name my_package`
-    1. Update [rproject.toml](rproject.toml) with your package name, author, and description, and preferred repository.
+    1. Update [rproject.toml](https://github.com/novica/r-project-template/blob/main/rproject.toml) with your package name, author, and description, and preferred repository.
     1. Update all references to package_name in:
-        - [package_name/tests/](package_name/tests/)
-        - [docs/](docs/)
-        - [release-please-config.json](release-please-config.json)
-        - [GitHub Actions workflow](.github/workflows/ci.yml)
+        - [src/package_name/\_\_tests\_\_/](https://github.com/novica/r-project-template/tree/main/src/package_name/__tests__)
+        - [docs/](https://github.com/novica/r-project-template/tree/main/docs)
+        - [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
+        - [GitHub Actions workflow](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml)
         - This README (including badge links)
-    1. Update the `"package-name"` field in [release-please-config.json](release-please-config.json) with your package name for automatically bumping the version number in [uv.lock](uv.lock) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
+    1. Update the `"package-name"` field in [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json) with your package name for automatically bumping the version number in [rv.lock](https://github.com/novica/r-project-template/blob/main/rv.lock) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
     1. Customise this README with a description of your project and planned features.
     1. Clear the CHANGELOG.
-    1. Enable automated releases by permitting GitHub Actions to open PRs (Settings -> Actions -> Workflow permissions) and add an initial commit hash to bootstrap the release-please in [.release-please-manifest.json](.release-please-manifest.json).
+    1. Enable automated releases by permitting GitHub Actions to open PRs (Settings -> Actions -> Workflow permissions) and add an initial commit hash to bootstrap the release-please in [.release-please-manifest.json](https://github.com/novica/r-project-template/blob/main/.release-please-manifest.json).
     1. Enable publishing to GitHub Pages (Settings -> Pages).
 
 ## 🚀 Features
 
 - Modular project directory structure using [box](https://klmr.me/box/articles/box.html).
 - README template with badges.
-- Packaging and dependency management via [rv](https://a2-ai.github.io/rv-docs/): [rproject.toml](rproject.toml).
+- Packaging and dependency management via [rv](https://a2-ai.github.io/rv-docs/): [rproject.toml](https://github.com/novica/r-project-template/blob/main/rproject.toml).
 - Linting via [Jarl](https://jarl.etiennebacher.com/).
 - Formatting via [Air](https://posit-dev.github.io/air/).
 - Testing framework using [testthat](https://testthat.r-lib.org/).
-- [Pre-commit hooks](.pre-commit-config.yaml) (linting and formatting).
-- CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yml](.github/workflows/ci.yml).
-- Docs generated with [Quartrify](https://github.com/ddotta/quartify)  and deployed to `gh-pages` branch via GitHub action: [.github/workflows/generate-docs.yml](.github/workflows/generate-docs.yml).
-- Templates for GitHub issues: bug report ([01-bug.yml](.github/ISSUE_TEMPLATE/01-bug.yml)) and feature request ([02-feature.yml](.github/ISSUE_TEMPLATE/01-feature.yml)).
-- Template for GitHub pull request: [.github/pull_request_template.md](.github/pull_request_template.md).
-- Template for [documenting architectural decisions](https://adr.github.io/): [docs/architecture/adr/template.md](docs/architecture/adr/template.md).
-  - ADR to explain the rationale for using ADRs: [docs/architecture/adr/001-use-architectural-decision-records.md](docs/architecture/adr/001-use-architectural-decision-records.md).
-- Release automation via GitHub action from [release-please](https://github.com/googleapis/release-please): [.github/release-please-config.json](.github/release-please-config.json).
-- Citation metadata, automatically updated for each new release: [CITATION.cff](CITATION.cff).
-- [EditorConfig](https://editorconfig.org/) configuration for consistent coding style across editors: [.editorconfig](.editorconfig).
+- [Git hooks](https://github.com/novica/r-project-template/blob/main/.pre-commit-config.yaml) via [prek](https://prek.j178.dev/) (linting and formatting).
+- CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml).
+- Docs generated with [quartify](https://github.com/ddotta/quartify) and rendered as a single [Quarto](https://quarto.org/) website, deployed to GitHub Pages via GitHub action: [.github/workflows/generate-docs.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml).
+- Templates for GitHub issues: bug report ([01-bug.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/01-bug.yml)) and feature request ([02-feature.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/02-feature.yml)).
+- Template for GitHub pull request: [.github/pull_request_template.md](https://github.com/novica/r-project-template/blob/main/.github/pull_request_template.md).
+- Template for [documenting architectural decisions](https://adr.github.io/): [docs/architecture/adr/template.md](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/template.md).
+  - ADR to explain the rationale for using ADRs: [docs/architecture/adr/001-use-architectural-decision-records.md](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/001-use-architectural-decision-records.md).
+- Release automation via GitHub action from [release-please](https://github.com/googleapis/release-please): [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json).
+- Citation metadata, automatically updated for each new release: [CITATION.cff](https://github.com/novica/r-project-template/blob/main/CITATION.cff).
+- [EditorConfig](https://editorconfig.org/) configuration for consistent coding style across editors: [.editorconfig](https://github.com/novica/r-project-template/blob/main/.editorconfig).
 
 ## ‼️ Limitations
 
@@ -69,7 +69,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](./.devcontainer/Dockerfile) and [configuration](./.devcontainer/devcontainer.json) in [./.devcontainer](./.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a Python 3.14 base image and installs prek, just and all Python dependencies.
+A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses an R base image and installs Quarto, rv, air, jarl, prek, and just.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -82,39 +82,41 @@ Dev Containers: Reopen in Container
 1. [Install rv](https://2-ai.github.io/rv-docs/intro/installation/)
 1. optional, if you want to use shortcut commands, [install just](https://just.systems/)
 1. optional, if you want to use pre-commit hooks, [install prek](https://prek.j178.dev/)
+1. optional, if you want to build the docs site locally, [install Quarto](https://quarto.org/docs/get-started/)
 1. Clone and install the project using rv:
 
 ```bash
-git clone https://github.com/gemmadanks/r-project-template
+git clone https://github.com/novica/r-project-template
 cd r-project-template
 rv sync
 ```
 
-1. [Install just](https://just.systems/man/en/packages.html).
-1. Install pre-commit hooks (only needs to be done once)
+1. Install pre-commit hooks (only needs to be done once): `just pre-commit-install`
 
 ## 🧪 Common Tasks
 
-Several common tasks have been added as recipes to a [justfile](justfile) in the root of the repository:
+Several common tasks have been added as recipes to a [justfile](https://github.com/novica/r-project-template/blob/main/justfile) in the root of the repository:
 
 ```bash
-    default    # Default recipe (shown when running plain `just`)
-    docs-build # Build docs (Quartrify)
-    format     # Format (Air format)
-    install    # Install dependencies (create/update virtualenv)
-    lint       # Lint (Jarl check)
-    test       # Run testthat
-    update     # Upgrade packages to the latest versions available
+    default             # Default recipe (shown when running plain `just`)
+    install             # Install dependencies (rv sync)
+    update              # Upgrade packages to the latest versions available (rv upgrade)
+    lint                # Lint (Jarl check)
+    format              # Format (Air format)
+    test                # Run testthat
+    docs-build          # Build docs (Quartify generates reference qmd, Quarto renders the site)
+    pre-commit-install  # Install git hooks (via prek)
+    pre-commit          # Run all git hooks (via prek)
 ```
 
 ## 📚 Documentation
 
-- Generated with [Quartrify](https:://github.com/ddotta/quartify). Probably a lot can be improved here.
+- Generated with [quartify](https://github.com/ddotta/quartify) and rendered as a single [Quarto](https://quarto.org/) website (`just docs-build`), combining this README, the architecture/ADR docs, and the generated API reference. See [ADR-004](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/004-unify-docs-into-single-quarto-website.md).
 
 ## 🔄 Releases
 
 Managed by release-please: ([conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) drive [semantic versioning](https://semver.org/) and an autogenerated CHANGELOG).
-    - Configuration: [.github/release-please-config.json](.github/release-please-config.json)
+    - Configuration: [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
     - Version source: rproject.toml
 
 ## 📂 Project Structure
@@ -124,17 +126,20 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 ├── src/
 │   └── package_name/              # Source package
 │       ├── __init__.r
-│       └── hello.py               # Example module (replace with real code)
+│       └── hello.r                # Example module (replace with real code)
 |       └── __tests__/             # Test suite for the example module
 |          ├── __init__.r
 |          ├── helper-module.r
 |          └── test_hello.R
 ├── data-raw/                       # Raw data used in the project (if applicable)
-├── docs/                           # Generated quarto documentation
-│   ├── __init__.qmd
-│   ├── index.qmd
-│   ├── hello.qmd
-│   └── html/*                     # Generated HTML docs (deployed to GitHub Pages)
+├── docs/                           # Documentation site (Quarto website, see ADR-004)
+│   ├── _quarto.yml                # Hand-authored Quarto website project
+│   ├── index.qmd                  # Home page ({{< include ../README.md >}})
+│   ├── architecture/               # Hand-written: architecture overview + ADRs
+│   │   ├── index.md
+│   │   └── adr/
+│   ├── reference/                  # Generated by quartify (gitignored, rebuilt by `just docs-build`)
+│   └── html/                      # Rendered site output (gitignored; deployed to GitHub Pages)
 ├── notebooks/                     # Quarto notebooks
 │   └── demo.qmd
 ├── .github/
@@ -152,7 +157,7 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 ├── CITATION.cff                   # Citation metadata
 ├── LICENSE                        # License
 ├── NEWS.md                        # Generated by release-please (post-release)
-├── .pre-commit-config.yaml         # Pre-commit hooks configuration (uv)
+├── .pre-commit-config.yaml         # Git hooks configuration (run via prek)
 ├── .release-please-manifest.json  # Release-please state
 ├── release-please-config.json     # Release-please configuration
 ├── justfile                       # justfile containing recipes for common tasks
@@ -180,10 +185,10 @@ Suggestions and improvements to this template are very welcome — feel free to 
 
 ## 📖 Citation
 
-If used in research, cite via [CITATION.cff](CITATION.cff).
+If used in research, cite via [CITATION.cff](https://github.com/novica/r-project-template/blob/main/CITATION.cff).
 
 ## 🛡 License
 
-BSD-3-Clause – see [LICENSE](LICENSE).
+BSD-3-Clause – see [LICENSE](https://github.com/novica/r-project-template/blob/main/LICENSE).
 
 Happy coding! 🚀

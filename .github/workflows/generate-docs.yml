@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "docs/**"
+      - "README.md" # feeds the site's home page
       - ".github/workflows/generate-docs.yml"
       - "src/package_name/**" # rebuild if API docs change
 
@@ -38,8 +39,15 @@ jobs:
       - name: Sync project
         run: rv sync
 
-      - name: Run Quartrify
-        run: Rscript -e "quartify::rtoqmd_dir('src/package_name/', render = TRUE,  output_html_dir = '../../docs/html', exclude_pattern='__tests__')"
+      - name: Generate API reference (Quartify)
+        run: |
+          Rscript -e "quartify::rtoqmd_dir('src/package_name/', create_book = FALSE, render_html = FALSE, exclude_pattern = '__tests__')"
+          rm -rf docs/reference && mkdir -p docs/reference
+          for f in src/package_name/*.qmd; do mv "$f" "docs/reference/$(basename "$f" | sed 's/^_*//')"; done
+
+      - name: Render docs site (Quarto)
+        run: quarto render docs/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:

@@ -32,9 +32,12 @@ format:
 test:
     Rscript -e "testthat::test_dir('src/package_name/__tests__')"
 
-# Build docs (Quartrify)
+# Build docs (Quartify generates reference qmd, Quarto renders the docs/ website)
 docs-build:
-     Rscript -e "quartify::rtoqmd_dir('src/package_name/', render = TRUE,  output_html_dir = '../../docs/html', exclude_pattern='__tests__')"
+    Rscript -e "quartify::rtoqmd_dir('src/package_name/', create_book = FALSE, render_html = FALSE, exclude_pattern = '__tests__')"
+    rm -rf docs/reference && mkdir -p docs/reference
+    for f in src/package_name/*.qmd; do mv "$f" "docs/reference/$(basename "$f" | sed 's/^_*//')"; done
+    quarto render docs/
 
 # Install pre-commit hooks (via prek)
 pre-commit-install:
