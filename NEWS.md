@@ -1,3 +1,10 @@
+## [0.4.0](https://github.com/novica/r-project-template/compare/package_name-v0.3.0...package_name-v0.4.0) (2026-07-04)
+
+
+### Features
+
+* Docs/unify quarto website ([#26](https://github.com/novica/r-project-template/issues/26)) ([dfb7ee7](https://github.com/novica/r-project-template/commit/dfb7ee77d0770cdc7f459a6ceab11c9e252c93d7))
+
 ## [0.3.0](https://github.com/novica/r-project-template/compare/package_name-v0.2.0...package_name-v0.3.0) (2026-03-04)
 
 
