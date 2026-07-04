@@ -10,7 +10,7 @@ tags:
 | **Status** | 🟢 Accepted |
 | **Created**  | 2025-10-12 |
 | **Last Updated**  | 2025-10-12 |
-| **Deciders** | Gemma Danks |
+| **Deciders** | Novica Nakov |
 
 ---
 

@@ -36,8 +36,8 @@ RUN curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-ins
 # Install jarl
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.sh | sh
 
-# Install uv (Rust-based Python manager) needed for pre-commit hooks
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+# Install prek (Rust-based pre-commit hook runner)
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/latest/download/prek-installer.sh | sh
 
 # Install just
 RUN curl -fsSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
