@@ -28,7 +28,7 @@ jobs:
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
-          r-version: "4.5"
+          r-version: "4.6"
 
       - name: Set up quarto
         uses: quarto-dev/quarto-actions/setup@v2
