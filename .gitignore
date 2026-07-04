@@ -2,3 +2,4 @@
 **/*.quarto_ipynb
 docs/reference/
 docs/html/
+docs/_readme.md

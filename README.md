@@ -1,5 +1,6 @@
 # R project template
 
+<!-- badges: start -->
 [![CI](https://github.com/novica/r-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/ci.yml)
 [![release](https://github.com/novica/r-project-template/actions/workflows/release-please.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/release-please.yml)
 [![docs (Quartrify)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml)
@@ -10,6 +11,7 @@
 [![rv](https://img.shields.io/badge/-rv-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/A2-ai/rv)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+<!-- badges: end -->
 
 This is an attempt to make an R project template, that is not an R package, and that uses some of the recent tools that have been created in the R ecosystem. The template is inspired by the [python-project-template](https://github.com/gemmadanks/python-project-template/) by Gemma Danks.
 
