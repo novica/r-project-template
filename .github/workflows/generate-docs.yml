@@ -48,7 +48,11 @@ jobs:
           for f in src/package_name/*.qmd; do mv "$f" "docs/reference/$(basename "$f" | sed 's/^_*//')"; done
 
       - name: Render docs site (Quarto)
-        run: quarto render docs/
+        run: |
+          # docs/ isn't the repo root, so its rendered R chunks (e.g. reference/hello.qmd) won't see
+          # .Rprofile's rv activation — point R_LIBS_USER at rv's library directly instead.
+          export R_LIBS_USER="$(pwd)/$(rv info --library | sed 's/^library: //')"
+          quarto render docs/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
