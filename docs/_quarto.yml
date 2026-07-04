@@ -18,7 +18,8 @@ website:
   sidebar:
     style: docked
     contents:
-      - index.qmd
+      - text: "Home"
+        href: index.qmd
       - section: "Architecture"
         contents:
           - architecture/index.md

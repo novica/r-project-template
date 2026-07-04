@@ -44,14 +44,15 @@ There is no `library()`/`require()` for internal code — everything is `box::us
 - New test files follow the `test-<module>.R` naming convention testthat expects.
 
 **`docs/` is a single hand-authored Quarto website** (`docs/_quarto.yml`, see ADR-004) that combines the root
-README (`docs/index.qmd` includes it via `{{< include ../README.md >}}`), the architecture/ADR markdown
+README (`docs/index.qmd` includes it via `{{< include _readme.md >}}`), the architecture/ADR markdown
 (`docs/architecture/**`, rendered natively, edit directly), and a generated API reference. Only
-`docs/reference/*.qmd` and `docs/html/` are generated/gitignored: `quartify::rtoqmd_dir()` converts roxygen
-comments from `src/package_name/*.r` into `.qmd` (excluding `__tests__`), which `just docs-build` relocates
-into `docs/reference/` before running `quarto render docs/` to produce `docs/html` (deployed to GitHub Pages
-via `generate-docs.yml`). Don't hand-edit `docs/reference/*.qmd`/`docs/html` — edit the roxygen comments and
-regenerate instead. Adding or removing a source module needs a matching entry added/removed in
-`docs/_quarto.yml`'s sidebar (quartify's output isn't auto-discovered there).
+`docs/reference/*.qmd`, `docs/_readme.md`, and `docs/html/` are generated/gitignored: `quartify::rtoqmd_dir()`
+converts roxygen comments from `src/package_name/*.r` into `.qmd` (excluding `__tests__` and `__init__.r`),
+which `just docs-build` relocates into `docs/reference/`; `docs/_readme.md` is README.md with its
+`<!-- badges: start/end -->` block stripped (badges are GitHub-only). `quarto render docs/` then produces
+`docs/html` (deployed to GitHub Pages via `generate-docs.yml`). Don't hand-edit these generated files — edit
+README.md/the roxygen comments and regenerate instead. Adding or removing a source module needs a matching
+entry added/removed in `docs/_quarto.yml`'s sidebar (quartify's output isn't auto-discovered there).
 
 **Architectural Decision Records live in `docs/architecture/adr/`** (see ADR-001). Any architecturally
 significant change (new tool, new convention, reversing a prior decision) should get a new ADR — copy

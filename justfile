@@ -39,7 +39,11 @@ docs-build:
     # __init__.r is just re-export wiring (box::use(...)), not a documented module — drop its qmd
     rm -f src/package_name/__init__.qmd
     for f in src/package_name/*.qmd; do mv "$f" "docs/reference/$(basename "$f" | sed 's/^_*//')"; done
-    quarto render docs/
+    # Home page includes README minus its badges block (GitHub-only, not relevant on the docs site)
+    sed '/<!-- badges: start -->/,/<!-- badges: end -->/d' README.md > docs/_readme.md
+    # docs/ isn't the repo root, so its rendered R chunks (e.g. reference/hello.qmd) won't see
+    # .Rprofile's rv activation — point R_LIBS_USER at rv's library directly instead.
+    R_LIBS_USER="$(pwd)/$(rv info --library | sed 's/^library: //')" quarto render docs/
 
 # Install pre-commit hooks (via prek)
 pre-commit-install:
