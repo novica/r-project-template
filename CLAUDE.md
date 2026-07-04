@@ -18,7 +18,7 @@ just update       # rv upgrade — bump deps to latest allowed versions
 just lint          # jarl check .
 just format        # r-air format --check .   (drop --check to auto-fix: r-air format .)
 just test          # Rscript -e "testthat::test_dir('src/package_name/__tests__')"
-just docs-build     # quartify::rtoqmd_dir(...) — regenerates docs/*.qmd + docs/html from R source
+just docs-build     # quartify generates docs/reference/*.qmd, then `quarto render docs/` builds docs/html
 just pre-commit-install   # one-time: installs pre-commit + pre-push + commit-msg hooks via prek
 just pre-commit           # prek run --all-files --hook-stage pre-push
 ```
@@ -43,17 +43,22 @@ There is no `library()`/`require()` for internal code — everything is `box::us
   for the tests — add an equivalent `box::use()` line here when testing a new sibling module.
 - New test files follow the `test-<module>.R` naming convention testthat expects.
 
-**Docs are generated, not hand-written.** `docs/` (the `.qmd` files and `docs/html/`) is produced from the R
-source + roxygen comments by `quartify::rtoqmd_dir()` (`just docs-build`), excluding `__tests__`. Don't hand-edit
-generated `.qmd`/`docs/html` content — edit the roxygen comments in the source `.r` files instead and regenerate.
-`docs/html` is what's deployed to GitHub Pages (`generate-docs.yml`).
+**`docs/` is a single hand-authored Quarto website** (`docs/_quarto.yml`, see ADR-004) that combines the root
+README (`docs/index.qmd` includes it via `{{< include ../README.md >}}`), the architecture/ADR markdown
+(`docs/architecture/**`, rendered natively, edit directly), and a generated API reference. Only
+`docs/reference/*.qmd` and `docs/html/` are generated/gitignored: `quartify::rtoqmd_dir()` converts roxygen
+comments from `src/package_name/*.r` into `.qmd` (excluding `__tests__`), which `just docs-build` relocates
+into `docs/reference/` before running `quarto render docs/` to produce `docs/html` (deployed to GitHub Pages
+via `generate-docs.yml`). Don't hand-edit `docs/reference/*.qmd`/`docs/html` — edit the roxygen comments and
+regenerate instead. Adding or removing a source module needs a matching entry added/removed in
+`docs/_quarto.yml`'s sidebar (quartify's output isn't auto-discovered there).
 
 **Architectural Decision Records live in `docs/architecture/adr/`** (see ADR-001). Any architecturally
 significant change (new tool, new convention, reversing a prior decision) should get a new ADR — copy
 `template.md`, number sequentially (`NNN-verb-object.md`), status `🟡 Proposed`. Check existing ADRs before
 proposing changes that touch already-decided territory (e.g. `box` vs packages, `rv` vs `renv`/`packrat`).
 Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary — R dependency management is
-a separate decision, `rv` not `renv`/`packrat` (see ADR-003).
+a separate decision, `rv` not `renv`/`packrat` (see ADR-003). ADR-004 covers the `docs/` site structure.
 
 **Only one package manager is in play**: `rv` (via `rproject.toml` / `rv.lock`) manages R dependencies. rv has
 no concept of dev-only dependencies, so tooling deps (`languageserver`, `testthat`, `roxygen2`, `quartify`) are
