@@ -1,61 +1,57 @@
 ---
 tags:
-  - packaging
+  - tooling
 ---
 
-# ADR-002: Manage dependencies with uv
+# ADR-002: Use uv to invoke pre-commit hooks
 | | |
 | ---| ---|
 | **Status** |  🟢 Accepted |
 | **Created**  | 2025-10-18 |
-| **Last Updated**  | 2025-10-18 |
-| **Deciders** | Gemma Danks |
+| **Last Updated**  | 2026-07-04 |
+| **Deciders** | Novica Nakov |
 
 ---
 
 ## Context
 
-Every software project needs a way to manage dependencies. This allows reproducible, consistent installs across operating systems and machines. The Python ecosystem has several options that have evolved over time. It is important to choose a dependency manager that is fast, easy to use in CI, well supported by the community, uses metadata in the pyproject.toml file (i.e. [PEP 621 compliant](https://peps.python.org/pep-0621/)) and provides a good developer experience.
+This project's dependencies are R packages, managed with rv (see [ADR-003](003-manage-r-dependencies-with-rv.md)) — there is no project-level Python environment. However, `pre-commit` (formatting/linting orchestration, conventional-commit enforcement, spelling) is a Python tool, and its hook repos (`air-pre-commit`, `jarl-pre-commit`, `conventional-pre-commit`, `codespell`, ...) run as isolated Python environments regardless of what manages the project's own dependencies. Contributors need a way to invoke `pre-commit` itself without setting up a persistent Python dependency-management workflow (`pyproject.toml`, a checked-in virtualenv, etc.) for what is otherwise an R-only project.
 
 ## Problem Statement
 
-What dependency manager is best for our project?
+How do we run `pre-commit` — a Python tool — without introducing a persistent, project-level Python dependency setup?
 
 ## Options Considered
 
-|  Option  | Description | Developer Experience | Speed | Reproducibility | Adoption | CI | PEP 621 | Overall score | Notes |
-|----------|-------------|-------------|-----------------|-------------| ----- | ------|------| ------|------|
-| **Weight**      | - | 2 | 2 | 2 | 1| 1 | 1 | - | - |
-| **uv**          | New, fast replacement for multiple tools, built in Rust by creators of ruff.  | ✅ | ✅ | ✅  | ⚠️ | ✅ |  ✅ | 26 | Very fast. Probably the future standard. Also manages python versions. |
-| **Poetry**      | Well established packaging manager with wide adoption. | ✅ | ⚠️ | ✅ | ✅ | ✅ | ✅ | 25 | Mature, widely used but slower. |
-| **PDM**         | Light-weight, standards-compliant, written in Python. | ✅ | ⚠️  | ✅ | ⚠️ | ✅  |  ✅ | 24 | Good option, not as fast or popular as uv. |
-| **mamba**       | Reimplementation of conda in C++. | ⚠️ | ✅ | ✅ |  ✅ | ✅ | ❌ | 23 | Fast but not PEP 621 compliant |
-| **conda**       | Binary package manager, widely used for scientific software. | ⚠️ | ⚠️ | ✅ |  ✅ | ✅ | ❌ | 21 | Not as fast and not PEP 621 compliant |
-| **pipenv**      | Simplified packaging management tool. | ⚠️ | ⚠️ | ✅  | ⚠️ | ✅ | ❌ | 20 | Not PEP 621 compliant. |
-| **pip + venv**  | Standard library tools. | ✅ | ⚠️  | ❌ | ✅   | ✅ | ⚠️ | 20 | Not suitable for complex environments |
- |
-| **spack**       | HPC-oriented packaging manager. Supports full stack. | ❌ | ⚠️ | ✅ | ⚠️ | ⚠️ | ❌ | 17 | Best for multi-language environments on HPC clusters. |
+|  Option  | Description | Developer Experience | Speed | No persistent env | Adoption | CI | Overall score | Notes |
+|----------|-------------|-------------|-----------------|-------------| ----- | ------|------|------|
+| **Weight**      | - | 2 | 2 | 2 | 1 | 1 | - | - |
+| **uv (uvx)**    | Rust-based Python tool runner; resolves and runs a tool in an ephemeral, cached env. | ✅ | ✅ | ✅ | ⚠️ | ✅ | 25 | One install, no lockfile/venv to maintain; version pins live in `.pre-commit-config.yaml` itself. |
+| **pipx**        | Established tool for running Python CLIs in isolated venvs. | ✅ | ⚠️ | ✅ | ✅ | ✅ | 23 | Mature and widely adopted, but noticeably slower to install/run than uv. |
+| **pip + venv**  | Manually create a project venv and `pip install pre-commit`. | ⚠️ | ⚠️ | ❌ | ✅ | ✅ | 18 | Requires a checked-in or documented venv — persistent Python state in an R project. |
+| **System pip install** | `pip install --user pre-commit` globally. | ❌ | ✅ | ⚠️ | ✅ | ⚠️ | 16 | No isolation; version drifts across machines/CI; risk of clobbering other global installs. |
 
 ✅ = 3 (good), ⚠️ = 2 (acceptable), ❌ = 1 (poor)
 
 ## Decision Outcome
 
-We will use uv since it is extremely fast and likely to become the new standard. It provides a good developer experience and replaces multiple tools. Performance is particularly important for CI. Poetry and PDM are good alternatives. Poetry is more mature and widely adopted.
+We will use `uvx pre-commit` (via uv). It runs `pre-commit` as an ephemeral, cached tool invocation with no persistent virtualenv or Python manifest to maintain, keeping the project's declared dependency surface R-only (`rproject.toml` / `rv.lock`) while still using the mature Python `pre-commit` ecosystem for hook orchestration. It is also extremely fast, which matters for the `pre-commit-install`/`pre-commit` justfile recipes and CI.
 
 ## Consequences
 
-Using uv will simplify Python and dependency management. It is extremely fast and so will speed up continuous integration, reducing waiting time substantially where installing dependencies is the bottleneck. It also manages Python versions and is PEP 621 compliant. This tool is likely to become the new standard.
-
-A risk is that this is under active development and is not yet widely adopted. Alternatives to fall back on include Poetry or PDM. This ADR should be revisited in one year since development in this area is ongoing and adoption of particular tools is in a state of flux.
+* Good, because contributors and CI only need `uv` installed — no `pyproject.toml`, `uv.lock`, or venv is added to the repo.
+* Good, because hook tool versions are pinned in `.pre-commit-config.yaml` (`rev:` per repo), so reproducibility doesn't depend on a Python lockfile at all.
+* Bad, because `uv` is a separate install contributors must have alongside `rv`/`air`/`jarl` — one more tool in the onboarding list.
+* Unknown/risk: if a future hook needs Python dependencies beyond what its own repo declares, `uvx` alone won't manage those — would need to revisit (e.g. `uvx --with`).
 
 ## Confirmation
 
-The project README will document the usage of uv. CI workflows will use uv and the uv.lock file will be placed under version control.
+`justfile`'s `pre-commit-install` and `pre-commit` recipes both shell out to `uvx pre-commit ...`. README documents `uv` as an optional install, needed only for local hook usage.
 
 ## Links
 
 | Type | Links |
 | -----| ------|
-| **ADRs**   | |
+| **ADRs**   | [ADR-003](003-manage-r-dependencies-with-rv.md) |
 | **Issues** | |
 | **PRs**    | |
