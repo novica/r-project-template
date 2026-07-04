@@ -69,7 +69,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](./.devcontainer/Dockerfile) and [configuration](./.devcontainer/devcontainer.json) in [./.devcontainer](./.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a Python 3.14 base image and installs uv, just and all Python dependencies.
+A [Dockerfile](./.devcontainer/Dockerfile) and [configuration](./.devcontainer/devcontainer.json) in [./.devcontainer](./.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a Python 3.14 base image and installs prek, just and all Python dependencies.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -81,7 +81,7 @@ Dev Containers: Reopen in Container
 
 1. [Install rv](https://2-ai.github.io/rv-docs/intro/installation/)
 1. optional, if you want to use shortcut commands, [install just](https://just.systems/)
-1. optional, if you want to use pre-commit hooks, [install uv](https://docs.astral.sh/uv/getting-started/installation/)
+1. optional, if you want to use pre-commit hooks, [install prek](https://prek.j178.dev/)
 1. Clone and install the project using rv:
 
 ```bash

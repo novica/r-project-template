@@ -56,6 +56,6 @@ renv was the main alternative and remains the safer, more mature choice for proj
 
 | Type | Links |
 | -----| ------|
-| **ADRs**   | [ADR-002](002-manage-dependencies-with-uv.md) |
+| **ADRs**   | [ADR-002](002-use-prek-for-git-hooks.md) |
 | **Issues** | |
 | **PRs**    | |
