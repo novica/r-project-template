@@ -5,12 +5,7 @@ license: BSD 3-Clause
 title: r-project-template
 version: 0.4.0
 abstract: >-
-  A template for R projects that is not an R package, exploring recent tools
-  from the R ecosystem: box for modular code organization instead of package
-  namespaces, rv for dependency management, air for formatting, jarl for
-  linting, and quartify for generating Quarto documentation. Includes a
-  justfile, testthat testing, pre-commit hooks, GitHub Actions CI, and automated
-  semantic releases.
+  A template for R projects that is not an R package, exploring recent tools from the R ecosystem: box for modular code organization instead of package namespaces, rv for dependency management, air for formatting, jarl for linting, and quartify for generating Quarto documentation. Includes a justfile, testthat testing, pre-commit hooks, GitHub Actions CI, and automated semantic releases.
 authors:
   - family-names: Nakov
     given-names: Novica
@@ -27,4 +22,4 @@ keywords:
   - template
   - project
   - package
-date-released: '2026-02-24'
+date-released: '2026-07-04'
