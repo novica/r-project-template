@@ -16,7 +16,7 @@ website:
       - icon: github
         href: "https://github.com/novica/r-project-template"
   page-footer:
-    center: "package_name v0.4.0 <!-- x-release-please-version -->"
+    center: "package_name v0.5.0 <!-- x-release-please-version -->"
   sidebar:
     style: docked
     contents:
