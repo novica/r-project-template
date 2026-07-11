@@ -39,6 +39,9 @@ RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/
 # Install prek (Rust-based pre-commit hook runner)
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/latest/download/prek-installer.sh | sh
 
+# Install rd2qmd (Rd to Quarto Markdown converter, used by docs-build)
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/eitsupi/rd2qmd/releases/latest/download/rd2qmd-installer.sh | sh
+
 # Install just
 RUN curl -fsSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
 

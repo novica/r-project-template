@@ -13,6 +13,10 @@ tags:
 
 ---
 
+**Update (see [ADR-005](005-generate-api-reference-with-box-and-rd2qmd.md)):** the site-unification decision
+below still stands, but the specific API-reference generation mechanism (quartify, `create_book = FALSE` /
+`render_html = FALSE`) described in Decision Outcome and Confirmation was replaced by ADR-005.
+
 ## Context
 
 `quartify::rtoqmd_dir()` converts roxygen comments in `src/package_name/*.r` into `.qmd` reference pages, but

@@ -23,7 +23,6 @@ dependencies = [
   { name = "box" },
   { name = "dplyr" },
   { name = "languageserver" },
-  { name = "quartify" },
   { name = "roxygen2" },
   { name = "testthat" },
 ]

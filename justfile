@@ -32,18 +32,15 @@ format:
 test:
     Rscript -e "testthat::test_dir('src/package_name/__tests__')"
 
-# Build docs (Quartify generates reference qmd, Quarto renders the docs/ website)
+# Build docs (box's own doc parser generates .Rd, rd2qmd converts, Quarto renders the docs/ website)
 docs-build:
-    Rscript -e "quartify::rtoqmd_dir('src/package_name/', create_book = FALSE, render_html = FALSE, exclude_pattern = '__tests__')"
+    Rscript scripts/gen-rd.R
     rm -rf docs/reference && mkdir -p docs/reference
-    # __init__.r is just re-export wiring (box::use(...)), not a documented module — drop its qmd
-    rm -f src/package_name/__init__.qmd
-    for f in src/package_name/*.qmd; do mv "$f" "docs/reference/$(basename "$f" | sed 's/^_*//')"; done
+    rd2qmd man/ -f md -o docs/reference/
+    rm -rf man
     # Home page includes README minus its badges block (GitHub-only, not relevant on the docs site)
     sed '/<!-- badges: start -->/,/<!-- badges: end -->/d' README.md > docs/_readme.md
-    # docs/ isn't the repo root, so its rendered R chunks (e.g. reference/hello.qmd) won't see
-    # .Rprofile's rv activation — point R_LIBS_USER at rv's library directly instead.
-    R_LIBS_USER="$(pwd)/$(rv info --library | sed 's/^library: //')" quarto render docs/
+    quarto render docs/
 
 # Install pre-commit hooks (via prek)
 pre-commit-install:
