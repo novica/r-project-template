@@ -5,16 +5,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 R project template (not an R package — no `DESCRIPTION`/`NAMESPACE`). Uses `box` modules instead of package
-namespaces, `rv` for dependency management instead of `renv`/`packrat`, `air` for formatting, `jarl` for linting.
-`src/package_name` is a placeholder directory name meant to be renamed per-project.
+namespaces, `uvr` for R version installation + dependency management instead of `rig`+`renv`/`packrat`, `air`
+for formatting, `jarl` for linting. `src/package_name` is a placeholder directory name meant to be renamed
+per-project.
 
 ## Commands
 
 Use `just <recipe>` (see `justfile`); run `just` alone to list recipes.
 
 ```bash
-just install      # rv sync — installs R deps into rv/library
-just update       # rv upgrade — bump deps to latest allowed versions
+just install      # uvr r install $(cat .r-version) && uvr sync — installs R itself + deps into .uvr/library
+just update       # uvr update — bump deps to latest allowed versions
 just lint          # jarl check .
 just format        # r-air format --check .   (drop --check to auto-fix: r-air format .)
 just test          # Rscript -e "testthat::test_dir('src/package_name/__tests__')"
@@ -59,19 +60,22 @@ matching entry added/removed in `docs/_quarto.yml`'s sidebar (not auto-discovere
 **Architectural Decision Records live in `docs/architecture/adr/`** (see ADR-001). Any architecturally
 significant change (new tool, new convention, reversing a prior decision) should get a new ADR — copy
 `template.md`, number sequentially (`NNN-verb-object.md`), status `🟡 Proposed`. Check existing ADRs before
-proposing changes that touch already-decided territory (e.g. `box` vs packages, `rv` vs `renv`/`packrat`).
-Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary — R dependency management is
-a separate decision, `rv` not `renv`/`packrat` (see ADR-003). ADR-004 covers the `docs/` site structure.
+proposing changes that touch already-decided territory (e.g. `box` vs packages, `uvr` vs `rv`/`renv`/`packrat`).
+Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary. ADR-004 covers the `docs/`
+site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003) for R dependency management.
 
-**Only one package manager is in play**: `rv` (via `rproject.toml` / `rv.lock`) manages R dependencies. rv has
-no concept of dev-only dependencies, so tooling deps (`languageserver`, `testthat`, `roxygen2`) are listed
-directly in `rproject.toml`'s `dependencies` alongside runtime deps. `rd2qmd` (used by `docs-build`) and Git
-hooks (`prek`, via `.pre-commit-config.yaml`) are standalone Rust binaries installed outside rv — no
-Python/uv install required for either.
+**`uvr` (via `uvr.toml` / `uvr.lock` / `.r-version`) manages both R itself and R dependencies** — installs the
+pinned R version (`uvr r install $(cat .r-version)`) and syncs packages into `.uvr/library`, which a small
+`uvr`-managed block in `.Rprofile` adds to `.libPaths()` automatically, so plain `Rscript`/interactive R
+sessions see the project library with no wrapper needed. Unlike `rv`, `uvr` has native dev-only dependency
+support — tooling deps (`languageserver`, `testthat`, `roxygen2`) live in `uvr.toml`'s `[dev-dependencies]`,
+separate from runtime deps in `[dependencies]`. `rd2qmd` (used by `docs-build`) and Git hooks (`prek`, via
+`.pre-commit-config.yaml`) are standalone Rust binaries installed outside uvr — no Python/uv install required
+for either.
 
-**Releases** are automated via `release-please` (conventional commits → version bump in `rproject.toml`,
-`NEWS.md`, `.release-please-manifest.json`). Commit messages must follow Conventional Commits
-(enforced by a commit-msg pre-commit hook) — this directly drives versioning, not just changelog style.
+**Releases** are automated via `release-please` (conventional commits → version bump in `uvr.toml`, `NEWS.md`,
+`.release-please-manifest.json`). Commit messages must follow Conventional Commits (enforced by a commit-msg
+pre-commit hook) — this directly drives versioning, not just changelog style.
 
 **AI-assisted commits** use the `Assisted-by:` trailer, not `Co-Authored-By:`, following the Linux kernel's
 guidance on coding-assistant attribution (https://docs.kernel.org/process/coding-assistants.html) — AI tools

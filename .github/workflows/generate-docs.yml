@@ -25,19 +25,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: "4.6"
-
       - name: Set up quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install rv
-        run: curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | bash
+      - name: Install uvr
+        run: curl -fsSL https://raw.githubusercontent.com/nbafrank/uvr/main/install.sh | sh
+
+      - name: Install R (via uvr)
+        run: uvr r install $(cat .r-version)
 
       - name: Sync project
-        run: rv sync
+        run: uvr sync --frozen
 
       - name: Install rd2qmd
         run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/eitsupi/rd2qmd/releases/latest/download/rd2qmd-installer.sh | sh

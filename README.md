@@ -3,19 +3,19 @@
 <!-- badges: start -->
 [![CI](https://github.com/novica/r-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/ci.yml)
 [![release](https://github.com/novica/r-project-template/actions/workflows/release-please.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/release-please.yml)
-[![docs (Quartrify)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml)
+[![docs](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml/badge.svg)](https://github.com/novica/r-project-template/actions/workflows/generate-docs.yml)
 [![Dependabot](https://img.shields.io/github/issues-search?query=repo%3Anovica%2Fr-project-template%20is%3Apr%20author%3Aapp%2Fdependabot%20is%3Aopen&label=Dependabot%20PRs)](https://github.com/novica/r-project-template/issues?q=is%3Apr%20is%3Aopen%20author%3Aapp%2Fdependabot)
 [![air](https://img.shields.io/badge/-air-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/posit-dev/air/)
-[![rv](https://img.shields.io/badge/-box-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/klmr/box)
+[![box](https://img.shields.io/badge/-box-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/klmr/box)
 [![jarl](https://img.shields.io/badge/-jarl-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/etiennebacher/jarl/)
-[![rv](https://img.shields.io/badge/-rv-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/A2-ai/rv)
+[![uvr](https://img.shields.io/badge/-uvr-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/nbafrank/uvr)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 <!-- badges: end -->
 
 This is an attempt to make an R project template, that is not an R package, and that uses some of the recent tools that have been created in the R ecosystem. The template is inspired by the [python-project-template](https://github.com/gemmadanks/python-project-template/) by Gemma Danks.
 
-The project features rv for project management and packaging, jarl for linting, and air for formatting, justfile, testthat testing, quarto documentation created with quartrify, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
+The project features uvr for project/package management and R version installation, jarl for linting, and air for formatting, justfile, testthat testing, a Quarto documentation site, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
 
 While the template can help you start writing code immediately without having to spend time deciding what tools or conventions to use, the tools and conventions that it introduces are not the *default*
 way of doing things in the R world, and there is a question mark if they get adopted in the future or not.
@@ -29,14 +29,14 @@ way of doing things in the R world, and there is a question mark if they get ado
     1. Clone your new repo locally
 1. 🏡 Customise the repository
     1. Rename your package directory `cd src; mv package_name my_package`
-    1. Update [rproject.toml](https://github.com/novica/r-project-template/blob/main/rproject.toml) with your package name, author, and description, and preferred repository.
+    1. Update [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml) with your package name, author, and description, and preferred repository.
     1. Update all references to package_name in:
         - [src/package_name/\_\_tests\_\_/](https://github.com/novica/r-project-template/tree/main/src/package_name/__tests__)
         - [docs/](https://github.com/novica/r-project-template/tree/main/docs)
         - [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
         - [GitHub Actions workflow](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml)
         - This README (including badge links)
-    1. Update the `"package-name"` field in [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json) with your package name for automatically bumping the version number in [rv.lock](https://github.com/novica/r-project-template/blob/main/rv.lock) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
+    1. Update the `"package-name"` field in [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json) with your package name for automatically bumping the version number in [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
     1. Customise this README with a description of your project and planned features.
     1. Clear the CHANGELOG.
     1. Enable automated releases by permitting GitHub Actions to open PRs (Settings -> Actions -> Workflow permissions) and add an initial commit hash to bootstrap the release-please in [.release-please-manifest.json](https://github.com/novica/r-project-template/blob/main/.release-please-manifest.json).
@@ -46,7 +46,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 - Modular project directory structure using [box](https://klmr.me/box/articles/box.html).
 - README template with badges.
-- Packaging and dependency management via [rv](https://a2-ai.github.io/rv-docs/): [rproject.toml](https://github.com/novica/r-project-template/blob/main/rproject.toml).
+- Packaging, dependency management, and R version installation via [uvr](https://github.com/nbafrank/uvr): [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml).
 - Linting via [Jarl](https://jarl.etiennebacher.com/).
 - Formatting via [Air](https://posit-dev.github.io/air/).
 - Testing framework using [testthat](https://testthat.r-lib.org/).
@@ -71,7 +71,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses an R base image and installs Quarto, rv, air, jarl, prek, rd2qmd, and just.
+A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a minimal Debian base image and installs Quarto, uvr (which then installs R itself), air, jarl, prek, rd2qmd, and just.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -81,16 +81,17 @@ Dev Containers: Reopen in Container
 
 ### Manual installation
 
-1. [Install rv](https://2-ai.github.io/rv-docs/intro/installation/)
+1. [Install uvr](https://github.com/nbafrank/uvr)
 1. optional, if you want to use shortcut commands, [install just](https://just.systems/)
 1. optional, if you want to use pre-commit hooks, [install prek](https://prek.j178.dev/)
 1. optional, if you want to build the docs site locally, [install Quarto](https://quarto.org/docs/get-started/) and [rd2qmd](https://github.com/eitsupi/rd2qmd)
-1. Clone and install the project using rv:
+1. Clone and install the project using uvr:
 
 ```bash
 git clone https://github.com/novica/r-project-template
 cd r-project-template
-rv sync
+uvr r install $(cat .r-version)
+uvr sync
 ```
 
 1. Install pre-commit hooks (only needs to be done once): `just pre-commit-install`
@@ -101,8 +102,8 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
 
 ```bash
     default             # Default recipe (shown when running plain `just`)
-    install             # Install dependencies (rv sync)
-    update              # Upgrade packages to the latest versions available (rv upgrade)
+    install             # Install R (via uvr) and dependencies (uvr sync)
+    update              # Upgrade packages to the latest versions available (uvr update)
     lint                # Lint (Jarl check)
     format              # Format (Air format)
     test                # Run testthat
@@ -119,7 +120,7 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
 
 Managed by release-please: ([conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) drive [semantic versioning](https://semver.org/) and an autogenerated CHANGELOG).
     - Configuration: [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
-    - Version source: rproject.toml
+    - Version source: uvr.toml
 
 ## 📂 Project Structure
 
@@ -136,7 +137,7 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 ├── data-raw/                       # Raw data used in the project (if applicable)
 ├── docs/                           # Documentation site (Quarto website, see ADR-004)
 │   ├── _quarto.yml                # Hand-authored Quarto website project
-│   ├── index.qmd                  # Home page ({{< include ../README.md >}})
+│   ├── index.qmd                  # Home page ({{< include _readme.md >}})
 │   ├── architecture/               # Hand-written: architecture overview + ADRs
 │   │   ├── index.md
 │   │   └── adr/
@@ -153,8 +154,9 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 ├── .devcontainer/                 # Dev container configuration
 │   ├── devcontainer.json
 │   └── Dockerfile
-├── rproject.toml                  # Project metadata + dependencies (rv)
-├── rv.lock                        # Locked dependency versions (rv)
+├── uvr.toml                       # Project metadata + dependencies (uvr)
+├── uvr.lock                       # Locked dependency versions (uvr)
+├── .r-version                     # Pinned exact R version (uvr)
 ├── README.md                      # Project overview (you are here)
 ├── CITATION.cff                   # Citation metadata
 ├── LICENSE                        # License
