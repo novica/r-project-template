@@ -18,7 +18,7 @@ just update       # rv upgrade — bump deps to latest allowed versions
 just lint          # jarl check .
 just format        # r-air format --check .   (drop --check to auto-fix: r-air format .)
 just test          # Rscript -e "testthat::test_dir('src/package_name/__tests__')"
-just docs-build     # quartify generates docs/reference/*.qmd, then `quarto render docs/` builds docs/html
+just docs-build     # scripts/gen-rd.R + rd2qmd generate docs/reference/*.md, then `quarto render docs/` builds docs/html
 just pre-commit-install   # one-time: installs pre-commit + pre-push + commit-msg hooks via prek
 just pre-commit           # prek run --all-files --hook-stage pre-push
 ```
@@ -46,13 +46,15 @@ There is no `library()`/`require()` for internal code — everything is `box::us
 **`docs/` is a single hand-authored Quarto website** (`docs/_quarto.yml`, see ADR-004) that combines the root
 README (`docs/index.qmd` includes it via `{{< include _readme.md >}}`), the architecture/ADR markdown
 (`docs/architecture/**`, rendered natively, edit directly), and a generated API reference. Only
-`docs/reference/*.qmd`, `docs/_readme.md`, and `docs/html/` are generated/gitignored: `quartify::rtoqmd_dir()`
-converts roxygen comments from `src/package_name/*.r` into `.qmd` (excluding `__tests__` and `__init__.r`),
-which `just docs-build` relocates into `docs/reference/`; `docs/_readme.md` is README.md with its
-`<!-- badges: start/end -->` block stripped (badges are GitHub-only). `quarto render docs/` then produces
-`docs/html` (deployed to GitHub Pages via `generate-docs.yml`). Don't hand-edit these generated files — edit
-README.md/the roxygen comments and regenerate instead. Adding or removing a source module needs a matching
-entry added/removed in `docs/_quarto.yml`'s sidebar (quartify's output isn't auto-discovered there).
+`docs/reference/*.md`, `docs/_readme.md`, and `docs/html/` are generated/gitignored:
+`scripts/gen-rd.R` calls `box:::parse_documentation()` (the same internal doc engine `box::help()` uses) to
+convert roxygen comments from `src/package_name/*.r` into `.Rd` files (excluding `__tests__` and `__init__.r`,
+which is just re-export wiring, not a documented module), which `rd2qmd` then converts to plain, non-executable
+`.md` (one page per documented topic — module doc + each exported function). `docs/_readme.md` is README.md
+with its `<!-- badges: start/end -->` block stripped (badges are GitHub-only). `quarto render docs/` then
+produces `docs/html` (deployed to GitHub Pages via `generate-docs.yml`). Don't hand-edit these generated files
+— edit README.md/the roxygen comments and regenerate instead. Adding or removing a documented topic needs a
+matching entry added/removed in `docs/_quarto.yml`'s sidebar (not auto-discovered there).
 
 **Architectural Decision Records live in `docs/architecture/adr/`** (see ADR-001). Any architecturally
 significant change (new tool, new convention, reversing a prior decision) should get a new ADR — copy
@@ -62,9 +64,10 @@ Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary
 a separate decision, `rv` not `renv`/`packrat` (see ADR-003). ADR-004 covers the `docs/` site structure.
 
 **Only one package manager is in play**: `rv` (via `rproject.toml` / `rv.lock`) manages R dependencies. rv has
-no concept of dev-only dependencies, so tooling deps (`languageserver`, `testthat`, `roxygen2`, `quartify`) are
-listed directly in `rproject.toml`'s `dependencies` alongside runtime deps. Git hooks run via `prek`
-(`.pre-commit-config.yaml`), a standalone binary — no Python/uv install required for hooks anymore.
+no concept of dev-only dependencies, so tooling deps (`languageserver`, `testthat`, `roxygen2`) are listed
+directly in `rproject.toml`'s `dependencies` alongside runtime deps. `rd2qmd` (used by `docs-build`) and Git
+hooks (`prek`, via `.pre-commit-config.yaml`) are standalone Rust binaries installed outside rv — no
+Python/uv install required for either.
 
 **Releases** are automated via `release-please` (conventional commits → version bump in `rproject.toml`,
 `NEWS.md`, `.release-please-manifest.json`). Commit messages must follow Conventional Commits

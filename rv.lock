@@ -49,22 +49,8 @@ force_source = false
 dependencies = []
 
 [[packages]]
-name = "Rcpp"
-version = "1.1.1-1.1"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
 name = "backports"
 version = "1.5.1"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
-name = "base64enc"
-version = "0.1-6"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
 force_source = false
 dependencies = []
@@ -89,35 +75,6 @@ version = "1.1.5"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
 force_source = false
 dependencies = []
-
-[[packages]]
-name = "bslib"
-version = "0.11.0"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "base64enc",
-    "cachem",
-    { name = "fastmap", requirement = "(>= 1.1.1)" },
-    { name = "htmltools", requirement = "(>= 0.5.8)" },
-    { name = "jquerylib", requirement = "(>= 0.1.3)" },
-    "jsonlite",
-    "lifecycle",
-    { name = "memoise", requirement = "(>= 2.0.1)" },
-    "mime",
-    "rlang",
-    { name = "sass", requirement = "(>= 0.4.9)" },
-]
-
-[[packages]]
-name = "cachem"
-version = "1.1.0"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "rlang",
-    { name = "fastmap", requirement = "(>= 1.2.0)" },
-]
 
 [[packages]]
 name = "callr"
@@ -225,23 +182,6 @@ force_source = false
 dependencies = []
 
 [[packages]]
-name = "fastmap"
-version = "1.2.0"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
-name = "fontawesome"
-version = "0.5.3"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "rlang", requirement = "(>= 1.0.6)" },
-    { name = "htmltools", requirement = "(>= 0.5.1.1)" },
-]
-
-[[packages]]
 name = "fs"
 version = "2.1.0"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
@@ -269,39 +209,6 @@ source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinu
 force_source = false
 dependencies = [
     { name = "xfun", requirement = "(>= 0.18)" },
-]
-
-[[packages]]
-name = "htmltools"
-version = "0.5.9"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "base64enc",
-    "digest",
-    { name = "fastmap", requirement = "(>= 1.1.0)" },
-    { name = "rlang", requirement = "(>= 1.0.0)" },
-]
-
-[[packages]]
-name = "httpuv"
-version = "1.6.17"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "later", requirement = "(>= 0.8.0)" },
-    "promises",
-    "R6",
-    { name = "Rcpp", requirement = "(>= 1.0.7)" },
-]
-
-[[packages]]
-name = "jquerylib"
-version = "0.1.4"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "htmltools",
 ]
 
 [[packages]]
@@ -344,16 +251,6 @@ dependencies = [
 ]
 
 [[packages]]
-name = "later"
-version = "1.4.8"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "Rcpp", requirement = "(>= 1.0.10)" },
-    "rlang",
-]
-
-[[packages]]
 name = "lifecycle"
 version = "1.0.5"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
@@ -387,33 +284,6 @@ version = "2.0.5"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
 force_source = false
 dependencies = []
-
-[[packages]]
-name = "memoise"
-version = "2.0.1"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "rlang", requirement = "(>= 0.4.10)" },
-    "cachem",
-]
-
-[[packages]]
-name = "mime"
-version = "0.13"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
-name = "miniUI"
-version = "0.1.2"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "shiny", requirement = "(>= 0.13)" },
-    { name = "htmltools", requirement = "(>= 0.3)" },
-]
 
 [[packages]]
 name = "otel"
@@ -491,21 +361,6 @@ dependencies = [
 ]
 
 [[packages]]
-name = "promises"
-version = "1.5.0"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "fastmap", requirement = "(>= 1.1.0)" },
-    "later",
-    "lifecycle",
-    { name = "magrittr", requirement = "(>= 1.5)" },
-    { name = "otel", requirement = "(>= 0.2.0)" },
-    "R6",
-    "rlang",
-]
-
-[[packages]]
 name = "ps"
 version = "1.9.3"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
@@ -526,51 +381,6 @@ dependencies = [
 ]
 
 [[packages]]
-name = "quartify"
-version = "1.1.1"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "rstudioapi",
-    "cli",
-    "shiny",
-    "miniUI",
-    "later",
-    "base64enc",
-    "shinyFiles",
-    "quarto",
-    "styler",
-    "lintr",
-]
-
-[[packages]]
-name = "quarto"
-version = "1.5.1"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "cli",
-    "fs",
-    "htmltools",
-    "jsonlite",
-    "later",
-    "lifecycle",
-    "processx",
-    "rlang",
-    "rmarkdown",
-    "rstudioapi",
-    "xfun",
-    { name = "yaml", requirement = "(>= 2.3.10)" },
-]
-
-[[packages]]
-name = "rappdirs"
-version = "0.3.4"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
 name = "rex"
 version = "1.2.2"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
@@ -585,24 +395,6 @@ version = "1.2.0"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
 force_source = false
 dependencies = []
-
-[[packages]]
-name = "rmarkdown"
-version = "2.31"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "bslib", requirement = "(>= 0.2.5.1)" },
-    { name = "evaluate", requirement = "(>= 0.13)" },
-    { name = "fontawesome", requirement = "(>= 0.5.0)" },
-    { name = "htmltools", requirement = "(>= 0.5.1)" },
-    "jquerylib",
-    "jsonlite",
-    { name = "knitr", requirement = "(>= 1.43)" },
-    { name = "tinytex", requirement = "(>= 0.31)" },
-    { name = "xfun", requirement = "(>= 0.36)" },
-    { name = "yaml", requirement = "(>= 2.1.19)" },
-]
 
 [[packages]]
 name = "roxygen2"
@@ -627,74 +419,6 @@ dependencies = [
 [[packages]]
 name = "rprojroot"
 version = "2.1.1"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
-name = "rstudioapi"
-version = "0.19.0"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
-name = "sass"
-version = "0.4.10"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "fs", requirement = "(>= 1.2.4)" },
-    { name = "rlang", requirement = "(>= 0.4.10)" },
-    { name = "htmltools", requirement = "(>= 0.5.1)" },
-    "R6",
-    "rappdirs",
-]
-
-[[packages]]
-name = "shiny"
-version = "1.14.0"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "bslib", requirement = "(>= 0.6.0)" },
-    { name = "cachem", requirement = "(>= 1.1.0)" },
-    "cli",
-    { name = "commonmark", requirement = "(>= 2.0.0)" },
-    { name = "fastmap", requirement = "(>= 1.1.1)" },
-    { name = "fontawesome", requirement = "(>= 0.4.0)" },
-    { name = "glue", requirement = "(>= 1.3.2)" },
-    { name = "htmltools", requirement = "(>= 0.5.4)" },
-    { name = "httpuv", requirement = "(>= 1.5.2)" },
-    { name = "jsonlite", requirement = "(>= 0.9.16)" },
-    { name = "later", requirement = "(>= 1.0.0)" },
-    { name = "lifecycle", requirement = "(>= 0.2.0)" },
-    { name = "mime", requirement = "(>= 0.3)" },
-    "otel",
-    { name = "promises", requirement = "(>= 1.5.0)" },
-    { name = "R6", requirement = "(>= 2.0)" },
-    { name = "rlang", requirement = "(>= 0.4.10)" },
-    "sourcetools",
-    "withr",
-    "xtable",
-]
-
-[[packages]]
-name = "shinyFiles"
-version = "0.9.3"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    "htmltools",
-    "jsonlite",
-    { name = "shiny", requirement = "(>= 1.1.0)" },
-    { name = "fs", requirement = "(>= 1.2.6)" },
-    { name = "tibble", requirement = "(>= 1.4.2)" },
-]
-
-[[packages]]
-name = "sourcetools"
-version = "0.1.7-2"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
 force_source = false
 dependencies = []
@@ -776,15 +500,6 @@ dependencies = [
 ]
 
 [[packages]]
-name = "tinytex"
-version = "0.60"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = [
-    { name = "xfun", requirement = "(>= 0.48)" },
-]
-
-[[packages]]
 name = "utf8"
 version = "1.2.6"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
@@ -842,13 +557,6 @@ dependencies = [
 [[packages]]
 name = "xmlparsedata"
 version = "1.0.5"
-source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
-force_source = false
-dependencies = []
-
-[[packages]]
-name = "xtable"
-version = "1.8-8"
 source = { repository = "https://packagemanager.posit.co/cran/__linux__/manylinux_2_28/latest" }
 force_source = false
 dependencies = []

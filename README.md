@@ -52,7 +52,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 - Testing framework using [testthat](https://testthat.r-lib.org/).
 - [Git hooks](https://github.com/novica/r-project-template/blob/main/.pre-commit-config.yaml) via [prek](https://prek.j178.dev/) (linting and formatting).
 - CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml).
-- Docs generated with [quartify](https://github.com/ddotta/quartify) and rendered as a single [Quarto](https://quarto.org/) website, deployed to GitHub Pages via GitHub action: [.github/workflows/generate-docs.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml).
+- Docs generated with [box](https://klmr.me/box/)'s own roxygen parser + [rd2qmd](https://github.com/eitsupi/rd2qmd) and rendered as a single [Quarto](https://quarto.org/) website, deployed to GitHub Pages via GitHub action: [.github/workflows/generate-docs.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml).
 - Templates for GitHub issues: bug report ([01-bug.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/01-bug.yml)) and feature request ([02-feature.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/02-feature.yml)).
 - Template for GitHub pull request: [.github/pull_request_template.md](https://github.com/novica/r-project-template/blob/main/.github/pull_request_template.md).
 - Template for [documenting architectural decisions](https://adr.github.io/): [docs/architecture/adr/template.md](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/template.md).
@@ -71,7 +71,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses an R base image and installs Quarto, rv, air, jarl, prek, and just.
+A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses an R base image and installs Quarto, rv, air, jarl, prek, rd2qmd, and just.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -84,7 +84,7 @@ Dev Containers: Reopen in Container
 1. [Install rv](https://2-ai.github.io/rv-docs/intro/installation/)
 1. optional, if you want to use shortcut commands, [install just](https://just.systems/)
 1. optional, if you want to use pre-commit hooks, [install prek](https://prek.j178.dev/)
-1. optional, if you want to build the docs site locally, [install Quarto](https://quarto.org/docs/get-started/)
+1. optional, if you want to build the docs site locally, [install Quarto](https://quarto.org/docs/get-started/) and [rd2qmd](https://github.com/eitsupi/rd2qmd)
 1. Clone and install the project using rv:
 
 ```bash
@@ -106,14 +106,14 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
     lint                # Lint (Jarl check)
     format              # Format (Air format)
     test                # Run testthat
-    docs-build          # Build docs (Quartify generates reference qmd, Quarto renders the site)
+    docs-build          # Build docs (box + rd2qmd generate reference md, Quarto renders the site)
     pre-commit-install  # Install git hooks (via prek)
     pre-commit          # Run all git hooks (via prek)
 ```
 
 ## 📚 Documentation
 
-- Generated with [quartify](https://github.com/ddotta/quartify) and rendered as a single [Quarto](https://quarto.org/) website (`just docs-build`), combining this README, the architecture/ADR docs, and the generated API reference. See [ADR-004](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/004-unify-docs-into-single-quarto-website.md).
+- Generated with box's own roxygen parser + [rd2qmd](https://github.com/eitsupi/rd2qmd) and rendered as a single [Quarto](https://quarto.org/) website (`just docs-build`), combining this README, the architecture/ADR docs, and the generated API reference. See [ADR-004](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/004-unify-docs-into-single-quarto-website.md).
 
 ## 🔄 Releases
 
@@ -140,7 +140,7 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 │   ├── architecture/               # Hand-written: architecture overview + ADRs
 │   │   ├── index.md
 │   │   └── adr/
-│   ├── reference/                  # Generated by quartify (gitignored, rebuilt by `just docs-build`)
+│   ├── reference/                  # Generated by rd2qmd (gitignored, rebuilt by `just docs-build`)
 │   └── html/                      # Rendered site output (gitignored; deployed to GitHub Pages)
 ├── notebooks/                     # Quarto notebooks
 │   └── demo.qmd
