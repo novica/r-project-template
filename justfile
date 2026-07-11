@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # R Project Template — Justfile
 # -----------------------------------------------------------------------------
-# Common developer commands for rv-based projects.
+# Common developer commands for uvr-based projects.
 # Run `just <command>` (e.g., `just test`).
 # -----------------------------------------------------------------------------
 
@@ -12,13 +12,14 @@ set shell := ["bash", "-cu"]
 default:
     @just --list
 
-# Install dependencies (create/update virtualenv)
+# Install dependencies (installs R via uvr if needed, then syncs packages)
 install:
-    rv sync
+    uvr r install $(cat .r-version)
+    uvr sync
 
 # Upgrade packages to the latest versions available
 update:
-    rv upgrade
+    uvr update
 
 # Lint (Jarl check)
 lint:

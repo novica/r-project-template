@@ -6,7 +6,7 @@ tags:
 # ADR-003: Manage R dependencies with rv
 | | |
 | ---| ---|
-| **Status** |  🟢 Accepted |
+| **Status** |  🔵 Superseded by [ADR-006](006-migrate-from-rv-to-uvr.md) |
 | **Created**  | 2026-07-04 |
 | **Last Updated**  | 2026-07-04 |
 | **Deciders** | Novica Nakov |
@@ -56,6 +56,6 @@ renv was the main alternative and remains the safer, more mature choice for proj
 
 | Type | Links |
 | -----| ------|
-| **ADRs**   | [ADR-002](002-use-prek-for-git-hooks.md) |
+| **ADRs**   | [ADR-002](002-use-prek-for-git-hooks.md), [ADR-006](006-migrate-from-rv-to-uvr.md) |
 | **Issues** | |
 | **PRs**    | |

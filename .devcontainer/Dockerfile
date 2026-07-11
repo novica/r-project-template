@@ -1,4 +1,4 @@
-FROM rocker/r-ver:4.6.1
+FROM debian:bookworm-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -22,13 +22,13 @@ RUN wget -O /tmp/quarto.deb https://quarto.org/download/latest/quarto-linux-amd6
     && rm -f /tmp/quarto.deb \
     && rm -rf /var/lib/apt/lists/*
 
-# Install rv and sync project packages (prefer using rv to manage packages)
-RUN curl -sSL https://raw.githubusercontent.com/A2-ai/rv/refs/heads/main/scripts/install.sh | sh \
-    && if command -v rv >/dev/null 2>&1; then \
-    rv syncs || true; \
-    else \
-    echo "rv install script did not put 'rv' on PATH; skipping rv sync"; \
-    fi
+# Install uvr, then R itself (pinned version from .r-version)
+# Project packages are synced by postCreateCommand once the repo is mounted (see devcontainer.json)
+COPY .r-version .
+RUN curl -fsSL https://raw.githubusercontent.com/nbafrank/uvr/main/install.sh | sh \
+    && uvr r install "$(cat .r-version)" \
+    && ln -sf "$HOME/.uvr/r-versions/$(cat .r-version)/bin/R" /usr/local/bin/R \
+    && ln -sf "$HOME/.uvr/r-versions/$(cat .r-version)/bin/Rscript" /usr/local/bin/Rscript
 
 # Install air
 RUN curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-installer.sh | sh
