@@ -37,7 +37,7 @@ test:
 docs-build:
     uvr run scripts/gen-rd.R
     rm -rf docs/reference && mkdir -p docs/reference
-    rd2qmd man/ -f md -o docs/reference/
+    rd2qmd convert man/ -f md -o docs/reference/
     rm -rf man
     # Home page includes README minus its badges block (GitHub-only, not relevant on the docs site)
     sed '/<!-- badges: start -->/,/<!-- badges: end -->/d' README.md > docs/_readme.md

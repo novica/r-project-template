@@ -74,7 +74,8 @@ installed package and there is nothing for a `library(pkg)`-style example to cal
 `quartify` is removed from `rproject.toml`'s dependencies (was only used for this). `rd2qmd` is installed
 alongside `air`/`jarl`/`prek` (standalone Rust binary, `.devcontainer/Dockerfile` and CI both install it via
 its release installer script). `justfile`'s `docs-build` recipe and `.github/workflows/generate-docs.yml` both
-run `Rscript scripts/gen-rd.R` then `rd2qmd man/ -f md -o docs/reference/`.
+run `scripts/gen-rd.R` then `rd2qmd convert man/ -f md -o docs/reference/` (rd2qmd 0.4.0 requires the explicit
+`convert` subcommand; earlier versions accepted the input path directly).
 
 ## Links
 
