@@ -7,6 +7,10 @@
           "jsonpath": "$.version",
           "path": "CITATION.cff",
           "type": "yaml"
+        },
+        {
+          "path": "docs/_quarto.yml",
+          "type": "generic"
         }
       ],
       "package-name": "package_name",
