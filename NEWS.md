@@ -1,3 +1,18 @@
+## [0.5.0](https://github.com/novica/r-project-template/compare/package_name-v0.4.0...package_name-v0.5.0) (2026-07-11)
+
+
+### Features
+
+* migrate R dependency management from rv to uvr ([#31](https://github.com/novica/r-project-template/issues/31)) ([f225ac1](https://github.com/novica/r-project-template/commit/f225ac1811a0402c65af581db62fb7aab0230b64))
+* replace quartify with box's own doc parser + rd2qmd ([#29](https://github.com/novica/r-project-template/issues/29)) ([a066e1c](https://github.com/novica/r-project-template/commit/a066e1cd8a977d959356f8d4d3df325714c81409))
+* show package version in docs site footer ([#35](https://github.com/novica/r-project-template/issues/35)) ([eea63a9](https://github.com/novica/r-project-template/commit/eea63a998c78dac29aee64215fa3b9424772788d))
+
+
+### Bug Fixes
+
+* use rd2qmd's convert subcommand (0.4.0 CLI break) ([#33](https://github.com/novica/r-project-template/issues/33)) ([b6a8fbe](https://github.com/novica/r-project-template/commit/b6a8fbed53c1381c86f2673513eb2d9251cbb2ba))
+* use uvr run instead of bare Rscript in CI/justfile ([#32](https://github.com/novica/r-project-template/issues/32)) ([1827584](https://github.com/novica/r-project-template/commit/182758497289c466f5ec954d47af14d34e570ef3))
+
 ## [0.4.0](https://github.com/novica/r-project-template/compare/package_name-v0.3.0...package_name-v0.4.0) (2026-07-04)
 
 

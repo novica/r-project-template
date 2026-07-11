@@ -3,9 +3,13 @@ message: 'If you wish to cite the "r-project-template" repository use:'
 type: software
 license: BSD 3-Clause
 title: r-project-template
-version: 0.4.0
+version: 0.5.0
 abstract: >-
-  A template for R projects that is not an R package, exploring recent tools from the R ecosystem: box for modular code organization instead of package namespaces, uvr for R version installation and dependency management, air for formatting, and jarl for linting. Includes a justfile, testthat testing, git hooks via prek, GitHub Actions CI, and automated semantic releases.
+  A template for R projects that is not an R package, exploring recent tools
+  from the R ecosystem: box for modular code organization instead of package
+  namespaces, uvr for R version installation and dependency management, air for
+  formatting, and jarl for linting. Includes a justfile, testthat testing, git
+  hooks via prek, GitHub Actions CI, and automated semantic releases.
 authors:
   - family-names: Nakov
     given-names: Novica
