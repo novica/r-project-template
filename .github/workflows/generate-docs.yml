@@ -42,7 +42,7 @@ jobs:
 
       - name: Generate API reference (box + rd2qmd)
         run: |
-          Rscript scripts/gen-rd.R
+          uvr run scripts/gen-rd.R
           rm -rf docs/reference && mkdir -p docs/reference
           rd2qmd man/ -f md -o docs/reference/
           rm -rf man

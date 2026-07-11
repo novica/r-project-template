@@ -31,11 +31,11 @@ format:
 
 # Run testthat
 test:
-    Rscript -e "testthat::test_dir('src/package_name/__tests__')"
+    uvr run scripts/run-tests.R
 
 # Build docs (box's own doc parser generates .Rd, rd2qmd converts, Quarto renders the docs/ website)
 docs-build:
-    Rscript scripts/gen-rd.R
+    uvr run scripts/gen-rd.R
     rm -rf docs/reference && mkdir -p docs/reference
     rd2qmd man/ -f md -o docs/reference/
     rm -rf man

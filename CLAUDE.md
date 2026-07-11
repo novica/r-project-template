@@ -18,13 +18,13 @@ just install      # uvr r install $(cat .r-version) && uvr sync — installs R i
 just update       # uvr update — bump deps to latest allowed versions
 just lint          # jarl check .
 just format        # r-air format --check .   (drop --check to auto-fix: r-air format .)
-just test          # Rscript -e "testthat::test_dir('src/package_name/__tests__')"
-just docs-build     # scripts/gen-rd.R + rd2qmd generate docs/reference/*.md, then `quarto render docs/` builds docs/html
+just test          # uvr run scripts/run-tests.R
+just docs-build     # uvr run scripts/gen-rd.R + rd2qmd generate docs/reference/*.md, then `quarto render docs/` builds docs/html
 just pre-commit-install   # one-time: installs pre-commit + pre-push + commit-msg hooks via prek
 just pre-commit           # prek run --all-files --hook-stage pre-push
 ```
 
-Run a single test file directly: `Rscript -e "testthat::test_file('src/package_name/__tests__/test-hello.R')"`.
+Run a single test file directly: `uvr run scripts/run-tests.R -- src/package_name/__tests__/test-hello.r`.
 
 CI (`.github/workflows/ci.yml`) runs, in order: `air format --check .`, `jarl check .`, then the testthat suite.
 Match that order locally before pushing.
@@ -42,7 +42,7 @@ There is no `library()`/`require()` for internal code — everything is `box::us
   test directory can be run either via `testthat::test_dir()` directly or by `box::use()`-ing it as a module.
 - `__tests__/helper-module.r` does `box::use(.. / hello[...])` to pull the parent module's exports into scope
   for the tests — add an equivalent `box::use()` line here when testing a new sibling module.
-- New test files follow the `test-<module>.R` naming convention testthat expects.
+- New test files follow the `test-<module>.r` naming convention testthat expects.
 
 **`docs/` is a single hand-authored Quarto website** (`docs/_quarto.yml`, see ADR-004) that combines the root
 README (`docs/index.qmd` includes it via `{{< include _readme.md >}}`), the architecture/ADR markdown
@@ -65,13 +65,15 @@ Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary
 site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003) for R dependency management.
 
 **`uvr` (via `uvr.toml` / `uvr.lock` / `.r-version`) manages both R itself and R dependencies** — installs the
-pinned R version (`uvr r install $(cat .r-version)`) and syncs packages into `.uvr/library`, which a small
-`uvr`-managed block in `.Rprofile` adds to `.libPaths()` automatically, so plain `Rscript`/interactive R
-sessions see the project library with no wrapper needed. Unlike `rv`, `uvr` has native dev-only dependency
-support — tooling deps (`languageserver`, `testthat`, `roxygen2`) live in `uvr.toml`'s `[dev-dependencies]`,
-separate from runtime deps in `[dependencies]`. `rd2qmd` (used by `docs-build`) and Git hooks (`prek`, via
-`.pre-commit-config.yaml`) are standalone Rust binaries installed outside uvr — no Python/uv install required
-for either.
+pinned R version (`uvr r install $(cat .r-version)`) and syncs packages into `.uvr/library`. `uvr r install`
+does *not* put R on `PATH`, so scripts here run through `uvr run <script>` (e.g. `scripts/run-tests.R`,
+`scripts/gen-rd.R`) rather than bare `Rscript` — `uvr run` finds the right R itself, no PATH needed. A small
+`uvr`-managed block in `.Rprofile` still adds `.uvr/library` to `.libPaths()` automatically for interactive/IDE
+sessions that already have *some* R on `PATH` (the devcontainer symlinks the pinned R to `/usr/local/bin/R`
+for exactly this). Unlike `rv`, `uvr` has native dev-only dependency support — tooling deps
+(`languageserver`, `testthat`, `roxygen2`) live in `uvr.toml`'s `[dev-dependencies]`, separate from runtime
+deps in `[dependencies]`. `rd2qmd` (used by `docs-build`) and Git hooks (`prek`, via `.pre-commit-config.yaml`)
+are standalone Rust binaries installed outside uvr — no Python/uv install required for either.
 
 **Releases** are automated via `release-please` (conventional commits → version bump in `uvr.toml`, `NEWS.md`,
 `.release-please-manifest.json`). Commit messages must follow Conventional Commits (enforced by a commit-msg
