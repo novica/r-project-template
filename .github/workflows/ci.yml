@@ -55,4 +55,4 @@ jobs:
         run: jarl check .
 
       - name: Run tests with testthat
-        run: Rscript -e "testthat::test_dir('src/package_name/__tests__')"
+        run: uvr run scripts/run-tests.R
