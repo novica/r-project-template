@@ -9,6 +9,7 @@
 [![box](https://img.shields.io/badge/-box-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/klmr/box)
 [![jarl](https://img.shields.io/badge/-jarl-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/etiennebacher/jarl/)
 [![uvr](https://img.shields.io/badge/-uvr-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/nbafrank/uvr)
+[![rd2qmd](https://img.shields.io/badge/-rd2qmd-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/eitsupi/rd2qmd)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 <!-- badges: end -->
