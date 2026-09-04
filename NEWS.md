@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/novica/r-project-template/compare/package_name-v0.5.0...package_name-v0.5.1) (2026-09-04)
+
+
+### Bug Fixes
+
+* lockfile was stale causing failing CI ([#37](https://github.com/novica/r-project-template/issues/37)) ([2cdd971](https://github.com/novica/r-project-template/commit/2cdd97183c588de8c6ab125d03ea27184068a65b))
+
 ## [0.5.0](https://github.com/novica/r-project-template/compare/package_name-v0.4.0...package_name-v0.5.0) (2026-07-11)
 
 
