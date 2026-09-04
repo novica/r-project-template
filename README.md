@@ -97,6 +97,14 @@ uvr sync
 
 1. Install pre-commit hooks (only needs to be done once): `just pre-commit-install`
 
+### Day-to-day: is `uvr` how you run things?
+
+No — `uvr` only installs R itself and syncs `.uvr/library`; `.Rprofile` then wires that library onto
+`.libPaths()` automatically. Once you've run `uvr sync`, write and run code in `src/package_name/` and
+`notebooks/` from your normal R session (RStudio/Positron/terminal R, or `quarto render`) — no `uvr` prefix
+needed. Reach for `uvr` again only when dependencies change (`uvr sync`/`uvr update`) or for headless script
+execution (`uvr run <script>.R`, used by `just test`/CI, since it also finds the right R binary).
+
 ## 🧪 Common Tasks
 
 Several common tasks have been added as recipes to a [justfile](https://github.com/novica/r-project-template/blob/main/justfile) in the root of the repository:

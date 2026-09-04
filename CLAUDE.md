@@ -37,6 +37,17 @@ directory's root is the module's entry point and re-exports submodules with `box
 Import a sibling module with `box::use(. / hello)`; import a parent-relative module with `box::use(.. / hello[...])`.
 There is no `library()`/`require()` for internal code — everything is `box::use()`.
 
+**Running ad-hoc box scripts via `uvr run`.** `uvr run <script>.R` only handles finding the right R and
+putting `.uvr/library` on `.libPaths()` (confirmed working with no wrapper needed, see ADR-006) — it does
+*not* change how `box::use()` resolves relative paths. `.`/`..` in `box::use()` always resolve relative to
+the **directory of the script file being sourced**, not the repo root and not the invoking shell's cwd
+(verified directly: `box::use(./src/package_name/hello)` in a file under `scripts/` fails with "not found in
+scripts"; `box::use(../src/package_name/hello)` from that same location works). So a new one-off script placed
+in `scripts/` needs `../` to reach `src/package_name`, same as `__tests__/helper-module.r` does. This is why
+`scripts/run-tests.R` and `scripts/gen-rd.R` both sidestep the issue — one takes a hardcoded
+`"src/package_name/__tests__"` string (relative to cwd, since `just`/CI always run from repo root), the other
+uses `sys.source()` directly instead of `box::use()`.
+
 **Tests live inside the source tree**, not in a separate top-level `tests/` dir: `src/<pkg>/__tests__/`.
 - `__tests__/__init__.r` is itself a box module: on load it calls `testthat::test_dir(box::file())`, so the
   test directory can be run either via `testthat::test_dir()` directly or by `box::use()`-ing it as a module.
