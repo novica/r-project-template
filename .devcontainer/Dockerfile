@@ -36,6 +36,9 @@ RUN curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-ins
 # Install jarl
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/etiennebacher/jarl/releases/latest/download/jarl-installer.sh | sh
 
+# Install ry (static type/scope checker)
+RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/sims1253/ry/releases/latest/download/ry-cli-installer.sh | sh
+
 # Install prek (Rust-based pre-commit hook runner)
 RUN curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/latest/download/prek-installer.sh | sh
 

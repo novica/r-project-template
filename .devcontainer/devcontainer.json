@@ -11,7 +11,8 @@
         "REditorSupport.r-syntax",
         "RDebugSupport.r-debugger",
         "etiennebacher.jarl-vscode",
-        "Posit.air-vscode"
+        "Posit.air-vscode",
+        "scholzmx.ry-checker"
       ],
       "settings": {
         "r.lsp.path": "/usr/local/bin/R",

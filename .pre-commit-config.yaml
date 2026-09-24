@@ -1,17 +1,32 @@
 repos:
-# --- Air formatter ---
-  - repo: https://github.com/posit-dev/air-pre-commit
-    # Air version
-    rev: 0.8.2
+# --- R tooling: air (format), jarl (lint), ry (static check) ---
+# Local `system` hooks run whatever binary is installed (latest via the installers
+# in .devcontainer/Dockerfile and CI), keeping hooks, CI and editors on the same
+# version. The upstream air/jarl hook repos need a pinned `rev` and install via
+# Python, which prek otherwise avoids (see ADR-002 and ADR-007).
+  - repo: local
     hooks:
-      # Run the formatter
       - id: air-format
-
-# --- Jarl linter ---
-  - repo: https://github.com/etiennebacher/jarl-pre-commit
-    rev: 0.5.0
-    hooks:
+        name: air format
+        # Upstream binary is `air`; some distros (e.g. Arch) package it as `r-air`
+        entry: bash -c 'if command -v air >/dev/null; then exec air format "$@"; else exec r-air format "$@"; fi' --
+        language: system
+        types_or: [r]
+        require_serial: true
       - id: jarl-check
+        name: jarl check
+        entry: jarl check
+        language: system
+        files: \.(R|r|Rmd|rmd|qmd)$
+        require_serial: true
+      - id: ry-check
+        name: ry check
+        # Whole project: ry resolves bindings across files, so checking only staged files
+        # would miss cross-file breakage
+        entry: ry check .
+        language: system
+        types_or: [r]
+        pass_filenames: false
 
 # --- Basic hygiene ---
   - repo: https://github.com/pre-commit/pre-commit-hooks

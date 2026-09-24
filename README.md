@@ -16,7 +16,7 @@
 
 This is an attempt to make an R project template, that is not an R package, and that uses some of the recent tools that have been created in the R ecosystem. The template is inspired by the [python-project-template](https://github.com/gemmadanks/python-project-template/) by Gemma Danks.
 
-The project features uvr for project/package management and R version installation, jarl for linting, and air for formatting, justfile, testthat testing, a Quarto documentation site, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
+The project features uvr for project/package management and R version installation, jarl for linting, air for formatting, ry for static type checking, justfile, testthat testing, a Quarto documentation site, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
 
 While the template can help you start writing code immediately without having to spend time deciding what tools or conventions to use, the tools and conventions that it introduces are not the *default*
 way of doing things in the R world, and there is a question mark if they get adopted in the future or not.
@@ -50,8 +50,9 @@ way of doing things in the R world, and there is a question mark if they get ado
 - Packaging, dependency management, and R version installation via [uvr](https://github.com/nbafrank/uvr): [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml).
 - Linting via [Jarl](https://jarl.etiennebacher.com/).
 - Formatting via [Air](https://posit-dev.github.io/air/).
+- Static type and scope checking via [ry](https://github.com/sims1253/ry) (see [ADR-007](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/007-add-ry-static-checker.md) for its `box` limitation).
 - Testing framework using [testthat](https://testthat.r-lib.org/).
-- [Git hooks](https://github.com/novica/r-project-template/blob/main/.pre-commit-config.yaml) via [prek](https://prek.j178.dev/) (linting and formatting).
+- [Git hooks](https://github.com/novica/r-project-template/blob/main/.pre-commit-config.yaml) via [prek](https://prek.j178.dev/) (formatting, linting and static checking).
 - CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml).
 - Docs generated with [box](https://klmr.me/box/)'s own roxygen parser + [rd2qmd](https://github.com/eitsupi/rd2qmd) and rendered as a single [Quarto](https://quarto.org/) website, deployed to GitHub Pages via GitHub action: [.github/workflows/generate-docs.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml).
 - Templates for GitHub issues: bug report ([01-bug.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/01-bug.yml)) and feature request ([02-feature.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/02-feature.yml)).
@@ -72,7 +73,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a minimal Debian base image and installs Quarto, uvr (which then installs R itself), air, jarl, prek, rd2qmd, and just.
+A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a minimal Debian base image and installs Quarto, uvr (which then installs R itself), air, jarl, ry, prek, rd2qmd, and just.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -115,6 +116,7 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
     update              # Upgrade packages to the latest versions available (uvr update)
     lint                # Lint (Jarl check)
     format              # Format (Air format)
+    typecheck           # Static type/scope check (ry)
     test                # Run testthat
     docs-build          # Build docs (box + rd2qmd generate reference md, Quarto renders the site)
     pre-commit-install  # Install git hooks (via prek)
