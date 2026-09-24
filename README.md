@@ -10,6 +10,7 @@
 [![jarl](https://img.shields.io/badge/-jarl-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/etiennebacher/jarl/)
 [![uvr](https://img.shields.io/badge/-uvr-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/nbafrank/uvr)
 [![rd2qmd](https://img.shields.io/badge/-rd2qmd-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/eitsupi/rd2qmd)
+[![ry](https://img.shields.io/badge/-ry-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/sims1253/ry)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 <!-- badges: end -->
@@ -32,10 +33,11 @@ way of doing things in the R world, and there is a question mark if they get ado
     1. Rename your package directory `cd src; mv package_name my_package`
     1. Update [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml) with your package name, author, and description, and preferred repository.
     1. Update all references to package_name in:
-        - [src/package_name/\_\_tests\_\_/](https://github.com/novica/r-project-template/tree/main/src/package_name/__tests__)
-        - [docs/](https://github.com/novica/r-project-template/tree/main/docs)
+        - [scripts/](https://github.com/novica/r-project-template/tree/main/scripts) (`run-tests.R`, `gen-rd.R`)
+        - [docs/](https://github.com/novica/r-project-template/tree/main/docs) (`_quarto.yml`)
+        - [notebooks/demo.qmd](https://github.com/novica/r-project-template/blob/main/notebooks/demo.qmd)
         - [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
-        - [GitHub Actions workflow](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml)
+        - [docs GitHub Actions workflow](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml)
         - This README (including badge links)
     1. Update the `"package-name"` field in [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json) with your package name for automatically bumping the version number in [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
     1. Customise this README with a description of your project and planned features.
@@ -50,15 +52,17 @@ way of doing things in the R world, and there is a question mark if they get ado
 - Packaging, dependency management, and R version installation via [uvr](https://github.com/nbafrank/uvr): [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml).
 - Linting via [Jarl](https://jarl.etiennebacher.com/).
 - Formatting via [Air](https://posit-dev.github.io/air/).
-- Static type and scope checking via [ry](https://github.com/sims1253/ry) (see [ADR-007](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/007-add-ry-static-checker.md) for its `box` limitation).
+- Static type and scope checking via [ry](https://github.com/sims1253/ry).
 - Testing framework using [testthat](https://testthat.r-lib.org/).
 - [Git hooks](https://github.com/novica/r-project-template/blob/main/.pre-commit-config.yaml) via [prek](https://prek.j178.dev/) (formatting, linting and static checking).
+- Editor setup for VS Code / Positron: recommended extensions for air, jarl, ry and Quarto ([.vscode/extensions.json](https://github.com/novica/r-project-template/blob/main/.vscode/extensions.json)), format on save ([.vscode/settings.json](https://github.com/novica/r-project-template/blob/main/.vscode/settings.json)).
 - CI using [GitHub Actions](https://docs.github.com/en/actions): [.github/workflows/ci.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/ci.yml).
 - Docs generated with [box](https://klmr.me/box/)'s own roxygen parser + [rd2qmd](https://github.com/eitsupi/rd2qmd) and rendered as a single [Quarto](https://quarto.org/) website, deployed to GitHub Pages via GitHub action: [.github/workflows/generate-docs.yml](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml).
 - Templates for GitHub issues: bug report ([01-bug.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/01-bug.yml)) and feature request ([02-feature.yml](https://github.com/novica/r-project-template/blob/main/.github/ISSUE_TEMPLATE/02-feature.yml)).
 - Template for GitHub pull request: [.github/pull_request_template.md](https://github.com/novica/r-project-template/blob/main/.github/pull_request_template.md).
 - Template for [documenting architectural decisions](https://adr.github.io/): [docs/architecture/adr/template.md](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/template.md).
   - ADR to explain the rationale for using ADRs: [docs/architecture/adr/001-use-architectural-decision-records.md](https://github.com/novica/r-project-template/blob/main/docs/architecture/adr/001-use-architectural-decision-records.md).
+- [Dependabot](https://docs.github.com/en/code-security/dependabot) weekly updates for GitHub Actions: [.github/dependabot.yml](https://github.com/novica/r-project-template/blob/main/.github/dependabot.yml).
 - Release automation via GitHub action from [release-please](https://github.com/googleapis/release-please): [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json).
 - Citation metadata, automatically updated for each new release: [CITATION.cff](https://github.com/novica/r-project-template/blob/main/CITATION.cff).
 - [EditorConfig](https://editorconfig.org/) configuration for consistent coding style across editors: [.editorconfig](https://github.com/novica/r-project-template/blob/main/.editorconfig).
@@ -68,6 +72,10 @@ way of doing things in the R world, and there is a question mark if they get ado
 - Test coverage cannot be registered with codecov because it seems the R package `covr` does not work in this type of project structure.
 - `pkgdown` cannot be used for documentation for the same reason as above.
 - `devtools::check()` does not work because it expects a package structure with a `DESCRIPTION` file and an `R/` directory for source code, which this template does not have.
+- `ry` does not resolve `box::use()` imports. Referencing a box-imported module or name (`hello$say_hello()`,
+  `lapply(x, say_hello)`) reports a false RY010 (unbound variable), and `box::use(dplyr[filter])` is treated as
+  `stats::filter`. Suppress with `# ry: ignore[RY010]` or list the names under `globals` in
+  [ry.toml](https://github.com/novica/r-project-template/blob/main/ry.toml).
 
 ## 📦 Installation
 
@@ -84,6 +92,7 @@ Dev Containers: Reopen in Container
 ### Manual installation
 
 1. [Install uvr](https://github.com/nbafrank/uvr)
+1. [Install air](https://posit-dev.github.io/air/cli.html), [jarl](https://jarl.etiennebacher.com/) and [ry](https://github.com/sims1253/ry#install) (the git hooks run the installed binaries)
 1. optional, if you want to use shortcut commands, [install just](https://just.systems/)
 1. optional, if you want to use pre-commit hooks, [install prek](https://prek.j178.dev/)
 1. optional, if you want to build the docs site locally, [install Quarto](https://quarto.org/docs/get-started/) and [rd2qmd](https://github.com/eitsupi/rd2qmd)
@@ -129,9 +138,10 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
 
 ## 🔄 Releases
 
-Managed by release-please: ([conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) drive [semantic versioning](https://semver.org/) and an autogenerated `NEWS.md`).
-    - Configuration: [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
-    - Version source: uvr.toml
+Managed by release-please: [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) drive [semantic versioning](https://semver.org/) and an autogenerated `NEWS.md`.
+
+- Configuration: [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
+- Version source: [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml)
 
 ## 📂 Project Structure
 
@@ -140,11 +150,12 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 ├── src/
 │   └── package_name/              # Source package
 │       ├── __init__.r
-│       └── hello.r                # Example module (replace with real code)
-|       └── __tests__/             # Test suite for the example module
-|          ├── __init__.r
-|          ├── helper-module.r
-|          └── test_hello.R
+│       ├── hello.r                # Example module (replace with real code)
+│       └── __tests__/             # Test suite for the example module
+│           ├── __init__.r
+│           ├── helper-module.r
+│           └── test-hello.r
+├── scripts/                       # Helper scripts run via `uvr run` (tests, API reference generation)
 ├── data-raw/                       # Raw data used in the project (if applicable)
 ├── docs/                           # Documentation site (Quarto website, see ADR-004)
 │   ├── _quarto.yml                # Hand-authored Quarto website project
@@ -161,15 +172,26 @@ Managed by release-please: ([conventional commits](https://www.conventionalcommi
 │   │   ├── ci.yml                # Lint / test / build
 │   │   ├── generate-docs.yml     # Generate and deploy docs
 │   │   ├── release-please.yml    # Automated releases
-|   |   └── update-citaton-date-released.yml     # Update date-released in CITATION.cff on new release
+│   │   └── update-citaton-date-released.yml     # Update date-released in CITATION.cff on new release
+│   ├── ISSUE_TEMPLATE/            # Bug report and feature request templates
+│   ├── pull_request_template.md
+│   └── dependabot.yml             # Weekly GitHub Actions updates
 ├── .devcontainer/                 # Dev container configuration
 │   ├── devcontainer.json
 │   └── Dockerfile
+├── .vscode/                       # Recommended extensions and editor settings
 ├── uvr.toml                       # Project metadata + dependencies (uvr)
 ├── uvr.lock                       # Locked dependency versions (uvr)
 ├── .r-version                     # Pinned exact R version (uvr)
+├── .Rprofile                      # Adds .uvr/library to .libPaths() in interactive sessions (uvr)
+├── air.toml                       # Formatter configuration (air)
+├── jarl.toml                      # Linter configuration (jarl)
+├── ry.toml                        # Static checker configuration (ry)
 ├── README.md                      # Project overview (you are here)
 ├── CITATION.cff                   # Citation metadata
+├── CONTRIBUTING.md                # Contribution guidelines
+├── CODE_OF_CONDUCT.md             # Code of conduct
+├── CLAUDE.md                      # Guidance for AI coding assistants
 ├── LICENSE                        # License
 ├── NEWS.md                        # Generated by release-please (post-release)
 ├── .pre-commit-config.yaml         # Git hooks configuration (run via prek)
@@ -191,7 +213,7 @@ release-please.yml file for the GitHub action]
 
 Use [conventional commit](https://www.conventionalcommits.org/) messages (feat:, fix:, docs:, etc.). Ensure:
 
-- Lint & format clean
+- Lint, format & ry check clean
 - Tests pass
 - Docs build without warnings
 - ADR drafted for architecturally significant changes
