@@ -272,11 +272,11 @@ dev = true
 
 [[package]]
 name = "languageserver"
-version = "0.3.19"
+version = "0.3.20"
 source = "cran"
-raw_version = "0.3.19"
-url = "https://cran.r-project.org/src/contrib/languageserver_0.3.19.tar.gz"
-checksum = "md5:85ac44525539190274e9218dd5bcfba5"
+raw_version = "0.3.20"
+url = "https://cran.r-project.org/src/contrib/languageserver_0.3.20.tar.gz"
+checksum = "md5:059cd3f1b895c40d32e61a0a7fcb36c0"
 requires = [
     "callr",
     "collections",

@@ -1,8 +1,10 @@
 # ry static checker configuration — see https://github.com/sims1253/ry/blob/main/docs/configuration.md
 #
-# ry does not resolve `box::use()` imports (see ADR-007). Calls to imported functions are fine, but
-# referencing an imported name as a value (e.g. `lapply(x, say_hello)`) reports RY010
-# (unbound-variable). Either suppress inline with `# ry: ignore[RY010]` or list such names here:
+# ry does not resolve `box::use()` imports (see ADR-007). It reports RY010 (unbound-variable) for a
+# box module object (`box::use(./hello)` then `hello$say_hello()`) and for an attached name used as a
+# value (`lapply(x, say_hello)`); bare calls to attached names (`say_hello("x")`) pass. Package imports
+# are not tied to their package: `box::use(dplyr[filter])` is checked as `stats::filter`, so data-masked
+# columns report RY010 too. Suppress inline with `# ry: ignore[RY010]`, or list such names here:
 globals = []
 
 exclude = ["docs/html"]

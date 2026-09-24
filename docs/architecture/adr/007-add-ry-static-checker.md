@@ -29,13 +29,16 @@ planted in it, ry caught all three: RY040 (character + integer arithmetic), RY01
 **ry does not understand `box::use()`.** It resolves names only via `library()`/`require()` and an R package's
 `NAMESPACE`. What we observed:
 
-- Names imported with `box::use(./mod[fn])` or `box::use(./mod[...])` are never bound. Using one as a *value*
-  (e.g. `g <- say_hello`, `lapply(x, say_hello)`) reports a false RY010.
+- Nothing `box::use()` binds is known to ry. A module object (`box::use(./hello)` then `hello$say_hello()`, the
+  most common box form) reports a false RY010 on `hello`. Names attached with `box::use(./mod[fn])` or
+  `box::use(./mod[...])` report a false RY010 when used as a *value* (e.g. `g <- say_hello`,
+  `lapply(x, say_hello)`).
 - Calls to unknown names are not checked at all, so a misspelled call (`helo("x")`) or importing a name the module
-  doesn't export (`box::use(./hello[hello])`) goes unreported. This is why the current repo passes cleanly: tests only
-  *call* box imports.
-- Package functions imported through box (`box::use(dplyr[filter])`) are not tied to their package, so stub-based
-  checks (e.g. data-masked column resolution) don't apply to them.
+  doesn't export (`box::use(./hello[hello])`) goes unreported. This is why the current repo passes cleanly: its code
+  only makes bare calls to attached names and never references its module objects.
+- Package functions imported through box are not tied to their package. After `box::use(dplyr[filter])`, ry checks
+  `filter()` as `stats::filter`, so a valid data-masked column (`filter(d, mpg > 21)`) reports a false RY010. The same
+  code after `library(dplyr)` is clean.
 
 Separately, versions had drifted across the tools: CI installed air with `latest`, while `.pre-commit-config.yaml`
 pinned air 0.8.2 and jarl 0.5.0 via their upstream hook repos. Those hook repos also use `language: python`, so prek
@@ -82,7 +85,8 @@ created from it should run the current air, jarl and ry, not whatever was pinned
 * Bad, because a new air/jarl/ry release can fail CI on unchanged code. The fix is to address the new finding or
   suppress it; a failing build isn't a regression in the project.
 * Bad, because local `system` hooks require air, jarl and ry on `PATH`. prek no longer installs them.
-* Bad, because referencing a box-imported name as a value gives a false RY010 until ry supports `box::use()`.
+* Bad, because box module objects, box-imported names used as values, and data-masked columns after a box package
+  import give a false RY010 until ry supports `box::use()`.
   Work around with `# ry: ignore[RY010]` inline, or `globals` in `ry.toml`.
 * Risk: ry is pre-1.0; rule names, messages or config keys may change. Baselines match on message text, so reworded
   messages can bring back findings that were already accepted.

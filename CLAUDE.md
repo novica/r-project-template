@@ -78,9 +78,12 @@ Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary
 site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003) for R dependency management. ADR-007 covers
 adding `ry` and running air/jarl/ry at `latest` via local `system` hooks (no pinned `rev`s).
 
-**`ry` does not understand `box::use()`.** Box-imported names are unbound to ry: calling them is fine (ry does not
-flag unknown calls), but referencing one as a value (`lapply(x, say_hello)`) gives a false RY010 — suppress with
-`# ry: ignore[RY010]` or add the name to `globals` in `ry.toml`. Conversely, ry won't catch a misspelled box import.
+**`ry` does not understand `box::use()`.** Box-imported names are unbound to ry. Bare calls to attached names
+(`say_hello("x")`) pass only because ry does not flag unknown calls. Everything else gives a false RY010: module
+objects (`box::use(./hello)` then `hello$say_hello()`), attached names used as values (`lapply(x, say_hello)`), and
+data-masked columns after a box package import (`box::use(dplyr[filter])` is checked as `stats::filter`). Suppress
+with `# ry: ignore[RY010]` or add the name to `globals` in `ry.toml`. Conversely, ry won't catch a misspelled box
+import or a name the module doesn't export.
 
 **`uvr` (via `uvr.toml` / `uvr.lock` / `.r-version`) manages both R itself and R dependencies** — installs the
 pinned R version (`uvr r install $(cat .r-version)`) and syncs packages into `.uvr/library`. `uvr r install`
