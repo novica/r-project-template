@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/novica/r-project-template/compare/package_name-v0.6.0...package_name-v0.6.1) (2026-09-24)
+
+
+### Documentation
+
+* correct ry box limitations and fill README gaps ([#41](https://github.com/novica/r-project-template/issues/41)) ([df4f9ad](https://github.com/novica/r-project-template/commit/df4f9ad094f50f7bc08c3da48d1fb4ed8fd7fe6f))
+
 ## [0.6.0](https://github.com/novica/r-project-template/compare/package_name-v0.5.1...package_name-v0.6.0) (2026-09-24)
 
 
