@@ -1,3 +1,10 @@
+## [0.6.0](https://github.com/novica/r-project-template/compare/package_name-v0.5.1...package_name-v0.6.0) (2026-09-24)
+
+
+### Features
+
+* add ry static checker and track latest tool versions ([#39](https://github.com/novica/r-project-template/issues/39)) ([ef3c105](https://github.com/novica/r-project-template/commit/ef3c1057c7e8aa5072020e8a7167415a4d0f3a77))
+
 ## [0.5.1](https://github.com/novica/r-project-template/compare/package_name-v0.5.0...package_name-v0.5.1) (2026-09-04)
 
 
