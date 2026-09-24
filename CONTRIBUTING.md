@@ -3,7 +3,7 @@
 Thanks for your interest in contributing! Please follow these guidelines:
 
 - Use [conventional commit](https://www.conventionalcommits.org/) messages (feat:, fix:, docs:, etc.).
-- Ensure code is formatted with `air` and linted with `jarl` where applicable.
+- Ensure code is formatted with `air` and linted with `jarl`, and passes `ry check` where applicable.
 - Add tests for new features and bug fixes using `testthat`.
 - Update documentation for any new or changed functionality.
 - For substantial changes, open an issue first to discuss the design.

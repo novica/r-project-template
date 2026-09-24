@@ -54,5 +54,11 @@ jobs:
       - name: Run jarl lint
         run: jarl check .
 
+      - name: Install ry
+        run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/sims1253/ry/releases/latest/download/ry-cli-installer.sh | sh
+
+      - name: Run ry check
+        run: ry check --output-format github .
+
       - name: Run tests with testthat
         run: uvr run scripts/run-tests.R

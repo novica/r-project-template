@@ -164,11 +164,11 @@ dev = true
 
 [[package]]
 name = "diffobj"
-version = "0.3.8"
+version = "0.3.9"
 source = "cran"
-raw_version = "0.3.8"
-url = "https://cran.r-project.org/src/contrib/diffobj_0.3.8.tar.gz"
-checksum = "md5:b9c3f8ec8b020bb807312c6c80d1c78c"
+raw_version = "0.3.9"
+url = "https://cran.r-project.org/src/contrib/diffobj_0.3.9.tar.gz"
+checksum = "md5:2211ade9964a649d33567a67bbbac2de"
 requires = ["crayon"]
 dev = true
 
@@ -257,11 +257,11 @@ dev = true
 
 [[package]]
 name = "knitr"
-version = "1.51.0"
+version = "1.52.0"
 source = "cran"
-raw_version = "1.51"
-url = "https://cran.r-project.org/src/contrib/knitr_1.51.tar.gz"
-checksum = "md5:79f32f24b572fe198baca8882d6aa87f"
+raw_version = "1.52"
+url = "https://cran.r-project.org/src/contrib/knitr_1.52.tar.gz"
+checksum = "md5:0fc9f044e50fd86269f05b6067159bc6"
 requires = [
     "evaluate",
     "highr",
@@ -272,11 +272,11 @@ dev = true
 
 [[package]]
 name = "languageserver"
-version = "0.3.18"
+version = "0.3.19"
 source = "cran"
-raw_version = "0.3.18"
-url = "https://cran.r-project.org/src/contrib/languageserver_0.3.18.tar.gz"
-checksum = "md5:3283b759b82dbc59a2f884b3f1d6aab2"
+raw_version = "0.3.19"
+url = "https://cran.r-project.org/src/contrib/languageserver_0.3.19.tar.gz"
+checksum = "md5:85ac44525539190274e9218dd5bcfba5"
 requires = [
     "callr",
     "collections",
@@ -645,11 +645,11 @@ checksum = "md5:121bf3699aadb9d1b47d648964b934f8"
 
 [[package]]
 name = "xfun"
-version = "0.60.0"
+version = "0.61.0"
 source = "cran"
-raw_version = "0.60"
-url = "https://cran.r-project.org/src/contrib/xfun_0.60.tar.gz"
-checksum = "md5:1bea9ab58602d9b6eac3b5823a95e5e6"
+raw_version = "0.61"
+url = "https://cran.r-project.org/src/contrib/xfun_0.61.tar.gz"
+checksum = "md5:70130070c686204fb71dbf20c6c871ac"
 dev = true
 
 [[package]]

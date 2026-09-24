@@ -1,0 +1,8 @@
+# ry static checker configuration — see https://github.com/sims1253/ry/blob/main/docs/configuration.md
+#
+# ry does not resolve `box::use()` imports (see ADR-007). Calls to imported functions are fine, but
+# referencing an imported name as a value (e.g. `lapply(x, say_hello)`) reports RY010
+# (unbound-variable). Either suppress inline with `# ry: ignore[RY010]` or list such names here:
+globals = []
+
+exclude = ["docs/html"]

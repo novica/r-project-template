@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 R project template (not an R package — no `DESCRIPTION`/`NAMESPACE`). Uses `box` modules instead of package
 namespaces, `uvr` for R version installation + dependency management instead of `rig`+`renv`/`packrat`, `air`
-for formatting, `jarl` for linting. `src/package_name` is a placeholder directory name meant to be renamed
+for formatting, `jarl` for linting, `ry` for static type/scope checking. `src/package_name` is a placeholder directory name meant to be renamed
 per-project.
 
 ## Commands
@@ -17,7 +17,8 @@ Use `just <recipe>` (see `justfile`); run `just` alone to list recipes.
 just install      # uvr r install $(cat .r-version) && uvr sync — installs R itself + deps into .uvr/library
 just update       # uvr update — bump deps to latest allowed versions
 just lint          # jarl check .
-just format        # r-air format --check .   (drop --check to auto-fix: r-air format .)
+just format        # air format --check .   (drop --check to auto-fix; uses r-air if that's the installed name)
+just typecheck     # ry check .
 just test          # uvr run scripts/run-tests.R
 just docs-build     # uvr run scripts/gen-rd.R + rd2qmd generate docs/reference/*.md, then `quarto render docs/` builds docs/html
 just pre-commit-install   # one-time: installs pre-commit + pre-push + commit-msg hooks via prek
@@ -26,7 +27,7 @@ just pre-commit           # prek run --all-files --hook-stage pre-push
 
 Run a single test file directly: `uvr run scripts/run-tests.R -- src/package_name/__tests__/test-hello.r`.
 
-CI (`.github/workflows/ci.yml`) runs, in order: `air format --check .`, `jarl check .`, then the testthat suite.
+CI (`.github/workflows/ci.yml`) runs, in order: `air format --check .`, `jarl check .`, `ry check .`, then the testthat suite.
 Match that order locally before pushing.
 
 ## Architecture
@@ -70,10 +71,16 @@ matching entry added/removed in `docs/_quarto.yml`'s sidebar (not auto-discovere
 
 **Architectural Decision Records live in `docs/architecture/adr/`** (see ADR-001). Any architecturally
 significant change (new tool, new convention, reversing a prior decision) should get a new ADR — copy
-`template.md`, number sequentially (`NNN-verb-object.md`), status `🟡 Proposed`. Check existing ADRs before
+`template.md`, number sequentially (`NNN-verb-object.md`); status `🟡 Proposed` while still under discussion,
+`🟢 Accepted` if the decision is already made. Check existing ADRs before
 proposing changes that touch already-decided territory (e.g. `box` vs packages, `uvr` vs `rv`/`renv`/`packrat`).
 Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary. ADR-004 covers the `docs/`
-site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003) for R dependency management.
+site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003) for R dependency management. ADR-007 covers
+adding `ry` and running air/jarl/ry at `latest` via local `system` hooks (no pinned `rev`s).
+
+**`ry` does not understand `box::use()`.** Box-imported names are unbound to ry: calling them is fine (ry does not
+flag unknown calls), but referencing one as a value (`lapply(x, say_hello)`) gives a false RY010 — suppress with
+`# ry: ignore[RY010]` or add the name to `globals` in `ry.toml`. Conversely, ry won't catch a misspelled box import.
 
 **`uvr` (via `uvr.toml` / `uvr.lock` / `.r-version`) manages both R itself and R dependencies** — installs the
 pinned R version (`uvr r install $(cat .r-version)`) and syncs packages into `.uvr/library`. `uvr r install`
@@ -83,8 +90,9 @@ does *not* put R on `PATH`, so scripts here run through `uvr run <script>` (e.g.
 sessions that already have *some* R on `PATH` (the devcontainer symlinks the pinned R to `/usr/local/bin/R`
 for exactly this). Unlike `rv`, `uvr` has native dev-only dependency support — tooling deps
 (`languageserver`, `testthat`, `roxygen2`) live in `uvr.toml`'s `[dev-dependencies]`, separate from runtime
-deps in `[dependencies]`. `rd2qmd` (used by `docs-build`) and Git hooks (`prek`, via `.pre-commit-config.yaml`)
-are standalone Rust binaries installed outside uvr — no Python/uv install required for either.
+deps in `[dependencies]`. `rd2qmd` (used by `docs-build`), `air`, `jarl`, `ry`, and Git hooks (`prek`, via
+`.pre-commit-config.yaml`) are standalone Rust binaries installed outside uvr — no Python/uv install required. The
+air/jarl/ry hooks are `language: system`, so those binaries must be on `PATH`.
 
 **Releases** are automated via `release-please` (conventional commits → version bump in `uvr.toml`, `NEWS.md`,
 `.release-please-manifest.json`). Commit messages must follow Conventional Commits (enforced by a commit-msg

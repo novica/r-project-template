@@ -8,6 +8,9 @@
 # Always use bash for consistency across OSes
 set shell := ["bash", "-cu"]
 
+# Upstream binary is `air`; some distros (e.g. Arch) package it as `r-air`
+air := `command -v air || command -v r-air || echo air`
+
 # Default recipe (shown when running plain `just`)
 default:
     @just --list
@@ -27,7 +30,11 @@ lint:
 
 # Format (Air format)
 format:
-    r-air format --check .
+    {{air}} format --check .
+
+# Static type/scope check (ry)
+typecheck:
+    ry check .
 
 # Run testthat
 test:
