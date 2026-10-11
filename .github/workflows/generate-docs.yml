@@ -28,21 +28,21 @@ jobs:
       - name: Set up quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Install uvr
-        run: curl -fsSL https://raw.githubusercontent.com/nbafrank/uvr/main/install.sh | sh
+      - name: Install rig
+        run: curl -fsSL https://github.com/r-lib/rig/releases/download/latest/rig-linux-x86_64-latest.tar.gz | sudo tar xz -C /usr/local
 
-      - name: Install R (via uvr)
-        run: uvr r install $(cat .r-version)
+      - name: Check rproj.lock is up to date
+        run: rig proj lock && git diff --exit-code rproj.lock
 
-      - name: Sync project
-        run: uvr sync --frozen
+      - name: Install R and sync project
+        run: rig proj sync --frozen
 
       - name: Install rd2qmd
         run: curl --proto '=https' --tlsv1.2 -LsSf https://github.com/eitsupi/rd2qmd/releases/latest/download/rd2qmd-installer.sh | sh
 
       - name: Generate API reference (box + rd2qmd)
         run: |
-          uvr run scripts/gen-rd.R
+          rig run scripts/gen-rd.R
           rm -rf docs/reference && mkdir -p docs/reference
           rd2qmd convert man/ -f md -o docs/reference/
           rm -rf man

@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # R Project Template — Justfile
 # -----------------------------------------------------------------------------
-# Common developer commands for uvr-based projects.
+# Common developer commands for rig-based projects.
 # Run `just <command>` (e.g., `just test`).
 # -----------------------------------------------------------------------------
 
@@ -11,18 +11,21 @@ set shell := ["bash", "-cu"]
 # Upstream binary is `air`; some distros (e.g. Arch) package it as `r-air`
 air := `command -v air || command -v r-air || echo air`
 
+# Upstream binary is `rig`; some distros (e.g. Arch) package it as `r-rig`
+rig := `command -v rig || command -v r-rig || echo rig`
+
 # Default recipe (shown when running plain `just`)
 default:
     @just --list
 
-# Install dependencies (installs R via uvr if needed, then syncs packages)
+# Install dependencies (installs the R version rproj.lock names if needed, then syncs packages)
 install:
-    uvr r install $(cat .r-version)
-    uvr sync
+    {{rig}} proj sync
 
 # Upgrade packages to the latest versions available
 update:
-    uvr update
+    {{rig}} proj lock --upgrade
+    {{rig}} proj sync
 
 # Lint (Jarl check)
 lint:
@@ -38,11 +41,11 @@ typecheck:
 
 # Run testthat
 test:
-    uvr run scripts/run-tests.R
+    {{rig}} run scripts/run-tests.R
 
 # Build docs (box's own doc parser generates .Rd, rd2qmd converts, Quarto renders the docs/ website)
 docs-build:
-    uvr run scripts/gen-rd.R
+    {{rig}} run scripts/gen-rd.R
     rm -rf docs/reference && mkdir -p docs/reference
     rd2qmd convert man/ -f md -o docs/reference/
     rm -rf man

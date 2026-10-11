@@ -1,0 +1,26 @@
+[project]
+name = "package_name"
+version = "0.6.1"
+type = "project"
+
+[dependencies]
+R = ">= 4.6"
+box = "*"
+dplyr = "*"
+
+[dependency-groups.dev]
+languageserver = "*"
+roxygen2 = "*"
+testthat = "*"
+
+[tool.rig]
+# Exact R version: `rig proj sync` installs and uses only this patch release
+r-versions = ["4.6.1"]
+# Fixed platform set, so `rig proj lock` writes the same lock on every machine
+# (the default set adds the locking machine's own platform, e.g. ubuntu-24.04 in CI)
+platforms = [
+  "aarch64-apple-darwin",
+  "x86_64-w64-mingw32",
+  "x86_64-unknown-linux-gnu",
+  "source",
+]

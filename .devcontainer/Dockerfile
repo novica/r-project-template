@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -22,13 +22,13 @@ RUN wget -O /tmp/quarto.deb https://quarto.org/download/latest/quarto-linux-amd6
     && rm -f /tmp/quarto.deb \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uvr, then R itself (pinned version from .r-version)
+# Install rig, then R itself (the version rproj.lock names) under /opt/R, linked to /usr/local/bin/R
 # Project packages are synced by postCreateCommand once the repo is mounted (see devcontainer.json)
-COPY .r-version .
-RUN curl -fsSL https://raw.githubusercontent.com/nbafrank/uvr/main/install.sh | sh \
-    && uvr r install "$(cat .r-version)" \
-    && ln -sf "$HOME/.uvr/r-versions/$(cat .r-version)/bin/R" /usr/local/bin/R \
-    && ln -sf "$HOME/.uvr/r-versions/$(cat .r-version)/bin/Rscript" /usr/local/bin/Rscript
+COPY rproj.lock .
+RUN curl -fsSL https://github.com/r-lib/rig/releases/download/latest/rig-linux-x86_64-latest.tar.gz \
+    | tar xz -C /usr/local \
+    && rig add "$(sed -n 's/^r_version = "\(.*\)"/\1/p' rproj.lock | head -1)" \
+    && rm rproj.lock
 
 # Install air
 RUN curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-installer.sh | sh

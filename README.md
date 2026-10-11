@@ -8,7 +8,7 @@
 [![air](https://img.shields.io/badge/-air-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/posit-dev/air/)
 [![box](https://img.shields.io/badge/-box-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/klmr/box)
 [![jarl](https://img.shields.io/badge/-jarl-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/etiennebacher/jarl/)
-[![uvr](https://img.shields.io/badge/-uvr-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/nbafrank/uvr)
+[![rig](https://img.shields.io/badge/-rig-000000?logo=r&logoColor=white&labelColor=276DC3)](https://rig.r-lib.org/reference/proj.html)
 [![rd2qmd](https://img.shields.io/badge/-rd2qmd-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/eitsupi/rd2qmd)
 [![ry](https://img.shields.io/badge/-ry-000000?logo=r&logoColor=white&labelColor=276DC3)](https://github.com/sims1253/ry)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
@@ -17,7 +17,7 @@
 
 This is an attempt to make an R project template, that is not an R package, and that uses some of the recent tools that have been created in the R ecosystem. The template is inspired by the [python-project-template](https://github.com/gemmadanks/python-project-template/) by Gemma Danks.
 
-The project features uvr for project/package management and R version installation, jarl for linting, air for formatting, ry for static type checking, justfile, testthat testing, a Quarto documentation site, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
+The project features rig (`rig proj`) for project/package management and R version installation, jarl for linting, air for formatting, ry for static type checking, justfile, testthat testing, a Quarto documentation site, .editorconfig, .devcontainer, GitHub Actions CI, and automated semantic releases.
 
 While the template can help you start writing code immediately without having to spend time deciding what tools or conventions to use, the tools and conventions that it introduces are not the *default*
 way of doing things in the R world, and there is a question mark if they get adopted in the future or not.
@@ -31,7 +31,7 @@ way of doing things in the R world, and there is a question mark if they get ado
     1. Clone your new repo locally
 1. 🏡 Customise the repository
     1. Rename your package directory `cd src; mv package_name my_package`
-    1. Update [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml) with your package name, author, and description, and preferred repository.
+    1. Update [rproj.toml](https://github.com/novica/r-project-template/blob/main/rproj.toml) with your package name, version and dependencies.
     1. Update all references to package_name in:
         - [scripts/](https://github.com/novica/r-project-template/tree/main/scripts) (`run-tests.R`, `gen-rd.R`)
         - [docs/](https://github.com/novica/r-project-template/tree/main/docs) (`_quarto.yml`)
@@ -39,7 +39,7 @@ way of doing things in the R world, and there is a question mark if they get ado
         - [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
         - [docs GitHub Actions workflow](https://github.com/novica/r-project-template/blob/main/.github/workflows/generate-docs.yml)
         - This README (including badge links)
-    1. Update the `"package-name"` field in [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json) with your package name for automatically bumping the version number in [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
+    1. Update the `"package-name"` field in [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json) with your package name for automatically bumping the version number in [rproj.toml](https://github.com/novica/r-project-template/blob/main/rproj.toml) (see [release-please issue #2561](https://github.com/googleapis/release-please/issues/2561)).
     1. Customise this README with a description of your project and planned features.
     1. Clear the `NEWS.md`.
     1. Enable automated releases by permitting GitHub Actions to open PRs (Settings -> Actions -> Workflow permissions) and add an initial commit hash to bootstrap the release-please in [.release-please-manifest.json](https://github.com/novica/r-project-template/blob/main/.release-please-manifest.json).
@@ -49,7 +49,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 - Modular project directory structure using [box](https://klmr.me/box/articles/box.html).
 - README template with badges.
-- Packaging, dependency management, and R version installation via [uvr](https://github.com/nbafrank/uvr): [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml).
+- Packaging, dependency management, and R version installation via [rig proj](https://rig.r-lib.org/reference/proj.html): [rproj.toml](https://github.com/novica/r-project-template/blob/main/rproj.toml).
 - Linting via [Jarl](https://jarl.etiennebacher.com/).
 - Formatting via [Air](https://posit-dev.github.io/air/).
 - Static type and scope checking via [ry](https://github.com/sims1253/ry).
@@ -81,7 +81,7 @@ way of doing things in the R world, and there is a question mark if they get ado
 
 ### Working in a development container
 
-A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a minimal Debian base image and installs Quarto, uvr (which then installs R itself), air, jarl, ry, prek, rd2qmd, and just.
+A [Dockerfile](https://github.com/novica/r-project-template/blob/main/.devcontainer/Dockerfile) and [configuration](https://github.com/novica/r-project-template/blob/main/.devcontainer/devcontainer.json) in [.devcontainer](https://github.com/novica/r-project-template/tree/main/.devcontainer) can be used in VSCode or GitHub Codespaces to work in a pre-configured development environment. It uses a minimal Debian base image and installs Quarto, rig (which then installs R itself), air, jarl, ry, prek, rd2qmd, and just.
 
 To open the project in the container VSCode, you will need to add the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and download [Docker](https://docs.docker.com/get-started/get-docker/) (or [Podman](https://podman.io/docs/installation) -- and [configure VSCode to use podman instead of Docker](https://code.visualstudio.com/remote/advancedcontainers/docker-options#_podman)) -- see the [VSCode tutorial on devcontainers](https://code.visualstudio.com/docs/devcontainers/tutorial) for more details on using devcontainers. Then run:
 
@@ -91,29 +91,30 @@ Dev Containers: Reopen in Container
 
 ### Manual installation
 
-1. [Install uvr](https://github.com/nbafrank/uvr)
+1. [Install rig](https://github.com/r-lib/rig#installation) (some distros, e.g. Arch, package it as `r-rig`)
 1. [Install air](https://posit-dev.github.io/air/cli.html), [jarl](https://jarl.etiennebacher.com/) and [ry](https://github.com/sims1253/ry#install) (the git hooks run the installed binaries)
 1. optional, if you want to use shortcut commands, [install just](https://just.systems/)
 1. optional, if you want to use pre-commit hooks, [install prek](https://prek.j178.dev/)
 1. optional, if you want to build the docs site locally, [install Quarto](https://quarto.org/docs/get-started/) and [rd2qmd](https://github.com/eitsupi/rd2qmd)
-1. Clone and install the project using uvr:
+1. Clone and install the project using rig (installs the R version `rproj.lock` names, then the packages):
 
 ```bash
 git clone https://github.com/novica/r-project-template
 cd r-project-template
-uvr r install $(cat .r-version)
-uvr sync
+rig proj sync
 ```
 
 1. Install pre-commit hooks (only needs to be done once): `just pre-commit-install`
 
-### Day-to-day: is `uvr` how you run things?
+### Day-to-day: is `rig` how you run things?
 
-No — `uvr` only installs R itself and syncs `.uvr/library`; `.Rprofile` then wires that library onto
-`.libPaths()` automatically. Once you've run `uvr sync`, write and run code in `src/package_name/` and
-`notebooks/` from your normal R session (RStudio/Positron/terminal R, or `quarto render`) — no `uvr` prefix
-needed. Reach for `uvr` again only when dependencies change (`uvr sync`/`uvr update`) or for headless script
-execution (`uvr run <script>.R`, used by `just test`/CI, since it also finds the right R binary).
+No — `rig proj sync` installs R itself and the packages into `.rvenv/lib`; the `.Renviron` block rig manages
+then puts that library on `.libPaths()` for any R started from the repo root. Once you've synced, write and
+run code in `src/package_name/` and `notebooks/` from your normal R session (RStudio/Positron/terminal R, or
+`quarto render`) — no `rig` prefix needed. Reach for `rig` again only when dependencies change
+(`rig proj add`/`rig proj sync`/`just update`) or for headless script execution (`rig run <script>.R`, used by
+`just test`/CI, since it also finds the right R binary). `R --vanilla` skips `.Renviron` and so doesn't see
+the project library.
 
 ## 🧪 Common Tasks
 
@@ -121,8 +122,8 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
 
 ```bash
     default             # Default recipe (shown when running plain `just`)
-    install             # Install R (via uvr) and dependencies (uvr sync)
-    update              # Upgrade packages to the latest versions available (uvr update)
+    install             # Install R and dependencies (rig proj sync)
+    update              # Upgrade packages to the latest versions available (rig proj lock --upgrade)
     lint                # Lint (Jarl check)
     format              # Format (Air format)
     typecheck           # Static type/scope check (ry)
@@ -141,7 +142,7 @@ Several common tasks have been added as recipes to a [justfile](https://github.c
 Managed by release-please: [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) drive [semantic versioning](https://semver.org/) and an autogenerated `NEWS.md`.
 
 - Configuration: [release-please-config.json](https://github.com/novica/r-project-template/blob/main/release-please-config.json)
-- Version source: [uvr.toml](https://github.com/novica/r-project-template/blob/main/uvr.toml)
+- Version source: [rproj.toml](https://github.com/novica/r-project-template/blob/main/rproj.toml)
 
 ## 📂 Project Structure
 
@@ -155,7 +156,7 @@ Managed by release-please: [conventional commits](https://www.conventionalcommit
 │           ├── __init__.r
 │           ├── helper-module.r
 │           └── test-hello.r
-├── scripts/                       # Helper scripts run via `uvr run` (tests, API reference generation)
+├── scripts/                       # Helper scripts run via `rig run` (tests, API reference generation)
 ├── data-raw/                       # Raw data used in the project (if applicable)
 ├── docs/                           # Documentation site (Quarto website, see ADR-004)
 │   ├── _quarto.yml                # Hand-authored Quarto website project
@@ -180,10 +181,10 @@ Managed by release-please: [conventional commits](https://www.conventionalcommit
 │   ├── devcontainer.json
 │   └── Dockerfile
 ├── .vscode/                       # Recommended extensions and editor settings
-├── uvr.toml                       # Project metadata + dependencies (uvr)
-├── uvr.lock                       # Locked dependency versions (uvr)
-├── .r-version                     # Pinned exact R version (uvr)
-├── .Rprofile                      # Adds .uvr/library to .libPaths() in interactive sessions (uvr)
+├── rproj.toml                     # Project metadata, dependencies and pinned R version (rig)
+├── rproj.lock                     # Locked dependency versions for every platform (rig)
+├── .Renviron                      # Puts .rvenv/lib on .libPaths() in R sessions (managed by rig)
+├── .rvenvlib/                     # Small shim package .Renviron loads (managed by rig)
 ├── air.toml                       # Formatter configuration (air)
 ├── jarl.toml                      # Linter configuration (jarl)
 ├── ry.toml                        # Static checker configuration (ry)
