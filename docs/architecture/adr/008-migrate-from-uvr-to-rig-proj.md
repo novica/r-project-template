@@ -91,11 +91,16 @@ r-lib backing. If any blocking check fails, stay on uvr and revisit when `rig pr
 * Risk: on distros the r-hub version API doesn't know (seen on Arch: 404 on
   `rversions/resolve/release/linux-arch-/x86_64`), `rig proj init` fails without `--r-version`. With the R version
   pinned in `rproj.toml`, locking works and uses generic glibc Linux binaries.
-* Risk: in admin mode, rig installs Posit's distro-specific [r-builds](https://github.com/rstudio/r-builds),
-  which stop for a distro once its vendor support ends. Debian 12 is off the supported list: R 4.6.0 is its last
-  build, and 4.6.1 returns 403. The devcontainer moves to `debian:trixie-slim` (Debian 13), where admin mode
-  installs R under `/opt/R` and creates the `/usr/local/bin/R` and `Rscript` symlinks itself. User mode uses
-  the portable builds instead, which work on any glibc >= 2.34 distro but are marked experimental.
+* Risk: on Linux, rig's two modes install different R builds, both from Posit's
+  [r-builds](https://github.com/rstudio/r-builds). User mode always installs a portable build (glibc >= 2.34,
+  into the home directory). This is the same build uvr installs, so it is no new dependency. Admin mode installs
+  a distro-specific build into `/opt/R` by default. Posit stops building for a distro once its vendor support
+  ends. Debian 12 is off the supported list: R 4.6.0 is its last build, and 4.6.1 returns 403. rig's help says
+  admin mode falls back to a portable build when there is no distro-specific one, but it did not do so here: it
+  tried the missing Debian 12 `.deb` and failed. `rig add --platform linux-portable` forces the portable build in
+  admin mode. The devcontainer moves to `debian:trixie-slim` (Debian 13), where the distro-specific build exists
+  and admin mode installs R under `/opt/R` and creates the `/usr/local/bin/R` and `Rscript` symlinks itself.
+  Staying on bookworm would also work with `--platform linux-portable` (untested).
 * Note: some distros ship rig as `r-rig` (e.g. Arch), because `rig` is already taken by the Random Identity
   Generator. Upstream installs call it `rig`, so the `justfile` and CI use `rig`.
 * Note: R started from a subdirectory doesn't read the project's `.Renviron`, so it doesn't see the project
