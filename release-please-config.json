@@ -2,7 +2,11 @@
   "packages": {
     ".": {
       "extra-files": [
-        "uvr.toml",
+        {
+          "jsonpath": "$.project.version",
+          "path": "rproj.toml",
+          "type": "toml"
+        },
         {
           "jsonpath": "$.version",
           "path": "CITATION.cff",

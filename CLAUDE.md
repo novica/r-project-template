@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 R project template (not an R package — no `DESCRIPTION`/`NAMESPACE`). Uses `box` modules instead of package
-namespaces, `uvr` for R version installation + dependency management instead of `rig`+`renv`/`packrat`, `air`
+namespaces, `rig proj` for R version installation + dependency management instead of `uvr`/`renv`/`packrat`, `air`
 for formatting, `jarl` for linting, `ry` for static type/scope checking. `src/package_name` is a placeholder directory name meant to be renamed
 per-project.
 
@@ -14,18 +14,19 @@ per-project.
 Use `just <recipe>` (see `justfile`); run `just` alone to list recipes.
 
 ```bash
-just install      # uvr r install $(cat .r-version) && uvr sync — installs R itself + deps into .uvr/library
-just update       # uvr update — bump deps to latest allowed versions
+just install      # rig proj sync — installs the R version rproj.lock names + deps into .rvenv/lib
+just update       # rig proj lock --upgrade && rig proj sync — bump deps to latest allowed versions
 just lint          # jarl check .
 just format        # air format --check .   (drop --check to auto-fix; uses r-air if that's the installed name)
 just typecheck     # ry check .
-just test          # uvr run scripts/run-tests.R
-just docs-build     # uvr run scripts/gen-rd.R + rd2qmd generate docs/reference/*.md, then `quarto render docs/` builds docs/html
+just test          # rig run scripts/run-tests.R
+just docs-build     # rig run scripts/gen-rd.R + rd2qmd generate docs/reference/*.md, then `quarto render docs/` builds docs/html
 just pre-commit-install   # one-time: installs pre-commit + pre-push + commit-msg hooks via prek
 just pre-commit           # prek run --all-files --hook-stage pre-push
 ```
 
-Run a single test file directly: `uvr run scripts/run-tests.R -- src/package_name/__tests__/test-hello.r`.
+Run a single test file directly: `rig run scripts/run-tests.R src/package_name/__tests__/test-hello.r` (no `--`:
+`rig run` passes anything after `--` to R itself as flags).
 
 CI (`.github/workflows/ci.yml`) runs, in order: `air format --check .`, `jarl check .`, `ry check .`, then the testthat suite.
 Match that order locally before pushing.
@@ -38,8 +39,8 @@ directory's root is the module's entry point and re-exports submodules with `box
 Import a sibling module with `box::use(. / hello)`; import a parent-relative module with `box::use(.. / hello[...])`.
 There is no `library()`/`require()` for internal code — everything is `box::use()`.
 
-**Running ad-hoc box scripts via `uvr run`.** `uvr run <script>.R` only handles finding the right R and
-putting `.uvr/library` on `.libPaths()` (confirmed working with no wrapper needed, see ADR-006) — it does
+**Running ad-hoc box scripts via `rig run`.** `rig run <script>.R` only handles finding the right R and
+putting `.rvenv/lib` on `.libPaths()` (it also locks and syncs first if needed, see ADR-008) — it does
 *not* change how `box::use()` resolves relative paths. `.`/`..` in `box::use()` always resolve relative to
 the **directory of the script file being sourced**, not the repo root and not the invoking shell's cwd
 (verified directly: `box::use(./src/package_name/hello)` in a file under `scripts/` fails with "not found in
@@ -73,9 +74,10 @@ matching entry added/removed in `docs/_quarto.yml`'s sidebar (not auto-discovere
 significant change (new tool, new convention, reversing a prior decision) should get a new ADR — copy
 `template.md`, number sequentially (`NNN-verb-object.md`); status `🟡 Proposed` while still under discussion,
 `🟢 Accepted` if the decision is already made. Check existing ADRs before
-proposing changes that touch already-decided territory (e.g. `box` vs packages, `uvr` vs `rv`/`renv`/`packrat`).
+proposing changes that touch already-decided territory (e.g. `box` vs packages, `rig proj` vs `uvr`/`rv`/`renv`/`packrat`).
 Note: ADR-002 covers running Git hooks via `prek`, a dependency-free Rust binary. ADR-004 covers the `docs/`
-site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003) for R dependency management. ADR-007 covers
+site structure. ADR-006 covers `uvr` vs `rv` (superseding ADR-003), and ADR-008 the move from `uvr` to `rig proj`, for R
+dependency management. ADR-007 covers
 adding `ry` and running air/jarl/ry at `latest` via local `system` hooks (no pinned `rev`s).
 
 **`ry` does not understand `box::use()`.** Box-imported names are unbound to ry. Bare calls to attached names
@@ -85,19 +87,25 @@ data-masked columns after a box package import (`box::use(dplyr[filter])` is che
 with `# ry: ignore[RY010]` or add the name to `globals` in `ry.toml`. Conversely, ry won't catch a misspelled box
 import or a name the module doesn't export.
 
-**`uvr` (via `uvr.toml` / `uvr.lock` / `.r-version`) manages both R itself and R dependencies** — installs the
-pinned R version (`uvr r install $(cat .r-version)`) and syncs packages into `.uvr/library`. `uvr r install`
-does *not* put R on `PATH`, so scripts here run through `uvr run <script>` (e.g. `scripts/run-tests.R`,
-`scripts/gen-rd.R`) rather than bare `Rscript` — `uvr run` finds the right R itself, no PATH needed. A small
-`uvr`-managed block in `.Rprofile` still adds `.uvr/library` to `.libPaths()` automatically for interactive/IDE
-sessions that already have *some* R on `PATH` (the devcontainer symlinks the pinned R to `/usr/local/bin/R`
-for exactly this). Unlike `rv`, `uvr` has native dev-only dependency support — tooling deps
-(`languageserver`, `testthat`, `roxygen2`) live in `uvr.toml`'s `[dev-dependencies]`, separate from runtime
-deps in `[dependencies]`. `rd2qmd` (used by `docs-build`), `air`, `jarl`, `ry`, and Git hooks (`prek`, via
-`.pre-commit-config.yaml`) are standalone Rust binaries installed outside uvr — no Python/uv install required. The
+**`rig proj` (via `rproj.toml` / `rproj.lock`) manages both R itself and R dependencies** — `rig proj sync`
+installs the exact R version the lock names (pinned by `[tool.rig] r-versions` in `rproj.toml`) and syncs
+packages into `.rvenv/lib`. `rig proj` is experimental upstream. Scripts here run through `rig run <script>`
+(e.g. `scripts/run-tests.R`, `scripts/gen-rd.R`), which finds the right R itself. A rig-managed block in
+`.Renviron` plus the committed `.rvenvlib/rvenv` shim package put `.rvenv/lib` on `.libPaths()` for any R
+started from the repo root (not from a subdirectory, and not with `R --vanilla`); don't hand-edit inside the
+`# rig rvenv` markers or set `R_LIBS_USER`/`R_DEFAULT_PACKAGES` after them. Tooling deps (`languageserver`,
+`testthat`, `roxygen2`) live in `[dependency-groups.dev]`, separate from runtime deps in `[dependencies]`; keep
+them there rather than in rig's shared `tools` library, which isn't locked. `[tool.rig] platforms` is fixed so
+`rig proj lock` writes the same lock on every machine; CI fails if re-locking changes `rproj.lock`. Some distros
+(e.g. Arch) ship rig as `r-rig` because `rig` is taken by the Random Identity Generator; the `justfile`
+resolves either name. Non-root installs from distro packages default to admin mode, which calls `sudo`; set
+`RIG_MODE=user` to avoid that. The devcontainer (`debian:trixie-slim`, root) uses admin mode, which installs R
+under `/opt/R` and links it to `/usr/local/bin/R`. `rd2qmd` (used by `docs-build`), `air`, `jarl`, `ry`, and
+Git hooks (`prek`, via `.pre-commit-config.yaml`) are standalone Rust binaries installed outside rig — no
+Python/uv install required. The
 air/jarl/ry hooks are `language: system`, so those binaries must be on `PATH`.
 
-**Releases** are automated via `release-please` (conventional commits → version bump in `uvr.toml`, `NEWS.md`,
+**Releases** are automated via `release-please` (conventional commits → version bump in `rproj.toml`, `NEWS.md`,
 `.release-please-manifest.json`). Commit messages must follow Conventional Commits (enforced by a commit-msg
 pre-commit hook) — this directly drives versioning, not just changelog style.
 

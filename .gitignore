@@ -3,4 +3,10 @@
 docs/reference/
 docs/html/
 docs/_readme.md
-/.uvr/library/
+
+# rig rvenv start
+# Everything in .rvenv is machine-specific output of `rig proj sync`; it can
+# be deleted and rebuilt at any time. The committed rvenv shim package lives
+# in .rvenvlib instead.
+/.rvenv/
+# rig rvenv end

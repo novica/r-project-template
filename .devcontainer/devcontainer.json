@@ -22,5 +22,5 @@
   },
   "forwardPorts": [],
   "name": "R Project Template",
-  "postCreateCommand": "uvr sync && just pre-commit-install && just pre-commit"
+  "postCreateCommand": "rig proj sync && just pre-commit-install && just pre-commit"
 }
