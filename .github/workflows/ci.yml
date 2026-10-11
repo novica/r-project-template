@@ -27,7 +27,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,9 +38,6 @@ jobs:
 
       - name: Check rproj.lock is up to date
         run: rig proj lock && git diff --exit-code rproj.lock
-
-      - name: Install R and sync project
-        run: rig proj sync --frozen
 
       - name: Install air
         run: curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-installer.sh | sh
@@ -59,6 +56,35 @@ jobs:
 
       - name: Run ry check
         run: ry check --output-format github .
+
+  test:
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install rig
+        run: |
+          base=https://github.com/r-lib/rig/releases/download/latest
+          case "$RUNNER_OS" in
+            Linux) curl -fsSL "$base/rig-linux-x86_64-latest.tar.gz" | sudo tar xz -C /usr/local ;;
+            macOS) curl -fsSL "$base/rig-macos-arm64-latest.tar.gz" | sudo tar xz -C /usr/local ;;
+            Windows)
+              curl -fsSL -o "$RUNNER_TEMP/rig.zip" "$base/rig-windows-x86_64-latest.zip"
+              7z x -y -o"$RUNNER_TEMP/rig" "$RUNNER_TEMP/rig.zip" > /dev/null
+              echo "$RUNNER_TEMP/rig/bin" >> "$GITHUB_PATH" ;;
+          esac
+
+      - name: Install R and sync project
+        run: rig proj sync --frozen
 
       - name: Run tests with testthat
         run: rig run scripts/run-tests.R

@@ -28,7 +28,8 @@ just pre-commit           # prek run --all-files --hook-stage pre-push
 Run a single test file directly: `rig run scripts/run-tests.R src/package_name/__tests__/test-hello.r` (no `--`:
 `rig run` passes anything after `--` to R itself as flags).
 
-CI (`.github/workflows/ci.yml`) runs, in order: `air format --check .`, `jarl check .`, `ry check .`, then the testthat suite.
+CI (`.github/workflows/ci.yml`) runs, in order: the stale-`rproj.lock` check, `air format --check .`, `jarl check .`,
+`ry check .` (Linux only), then the testthat suite on Linux, macOS and Windows.
 Match that order locally before pushing.
 
 ## Architecture
